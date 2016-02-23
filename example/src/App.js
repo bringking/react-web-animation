@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import {Animation, AnimationGroup, AnimationSequence, Animatable, Timeline} from '../../lib';
+import {Animation, AnimationGroup, AnimationSequence, Animatable} from '../../lib';
 
 
 export default class App extends Component {
@@ -37,17 +37,22 @@ export default class App extends Component {
                 <div>Hello, world. Standalone</div>
             </Animation>
             <br/>
-            <Timeline>
-                <AnimationGroup>
-                    <Animatable id="1" keyframes={this.getKeyFrames()} timing={this.getTiming(2000)}>
-                        <div style={{paddingLeft: '0px'}}>Group 1-1</div>
-                    </Animatable>
-                    <Animatable id="2" keyframes={this.getKeyFrames()} timing={this.getTiming(2000)}>
-                        <div style={{paddingLeft: '0px'}}>Group 1-2</div>
-                    </Animatable>
-                </AnimationGroup>
-            </Timeline>
-
+            <AnimationGroup>
+                <Animatable id="1" keyframes={this.getKeyFrames()} timing={this.getTiming(2000)}>
+                    <div style={{paddingLeft: '0px'}}>Group 1-1</div>
+                </Animatable>
+                <Animatable id="2" keyframes={this.getKeyFrames()} timing={this.getTiming(2000)}>
+                    <div style={{paddingLeft: '0px'}}>Group 1-2</div>
+                </Animatable>
+            </AnimationGroup>
+            <AnimationSequence>
+                <Animatable id="1" keyframes={this.getKeyFrames()} timing={this.getTiming(2000)}>
+                    <div style={{paddingLeft: '0px'}}>Sequence 1-1</div>
+                </Animatable>
+                <Animatable id="2" keyframes={this.getKeyFrames()} timing={this.getTiming(2000)}>
+                    <div style={{paddingLeft: '0px'}}>Sequence 1-2</div>
+                </Animatable>
+            </AnimationSequence>
         </div>;
     }
 }
