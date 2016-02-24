@@ -5,5 +5,8 @@ node_js:
   - "4.0"
 install:
   - npm install -g babel-cli
+  - npm install react
+  - npm install react-dom
+  - npm install immutable
   - npm install
   - npm build
