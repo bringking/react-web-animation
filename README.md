@@ -77,3 +77,7 @@ check out the [http://react-web-animation.surge.sh](http://react-web-animation.s
 Why use this over other animation libraries for React? react-web-animation uses the Web Animations API polyfill so
 eventually it will use the native browser implementation and not depend on any third-party animation frameworks or CSS.
 Chrome has the greatest support for these today and if you view the source on the demos, you can see it isn't using CSS at all!
+
+## License
+
+MIT
