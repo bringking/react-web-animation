@@ -1,6 +1,8 @@
-import React, {Children} from 'react';
+import React, {Children,PropTypes} from 'react';
 import {Map,List,is} from 'immutable';
 import Animatable from './animatable';
+import assign from 'lodash.assign';
+import isEqual from 'lodash.isequal';
 
 class Animation extends Animatable {
     constructor() {
@@ -21,32 +23,75 @@ class Animation extends Animatable {
         }
 
         // start with the new config
-        const player = this.node.animate(this.keyframes.toJS(), this.timing.toJS());
+        const player = this.node.animate(this.keyframes, this.timing.toJS());
         this.setState({ player });
     }
 
     componentWillReceiveProps( nextProps ) {
-        const {timing,keyframes} = nextProps;
+        const {timing,keyframes, currentTime} = nextProps;
 
         // create data structures for props
-        const newKeyframes = new List(keyframes);
-        const newTiming = new Map(timing);
+        if ( timing && keyframes ) {
+            const newTiming = new Map(timing);
 
-        if ( !is(newKeyframes, this.keyframes) || !is(newTiming, this.timing) ) {
-            this.timing = newTiming;
-            this.keyframes = newKeyframes;
-
-            // start the new animation with the new config
-            this.startAnimation();
+            if ( !isEqual(keyframes, this.keyframes) || !is(newTiming, this.timing) ) {
+                this.timing = newTiming;
+                this.keyframes = keyframes;
+                // start the new animation with the new config
+                this.startAnimation();
+            }
         }
 
+
+        // update play state
+        this.updatePlayState(nextProps);
+
+        // update time
+        if ( nextProps.currentTime !== undefined && this.props.currentTime !== currentTime ) {
+            this.updateTime(nextProps);
+        }
+
+    }
+
+    updatePlayState( props ) {
+        let currentState = this.state.player.playState;
+        switch ( props.playState ) {
+            case 'running':
+                this.state.player.play();
+                break;
+            case 'paused':
+                if ( currentState !== 'paused' ) {
+                    this.state.player.pause();
+                }
+                break;
+            case 'finished':
+                if ( currentState !== 'finished' ) {
+                    this.state.player.finish();
+                }
+                break;
+            case 'idle':
+                if ( currentState !== 'idle' ) {
+                    this.state.player.cancel();
+                }
+                break;
+            case 'reversed':
+                this.state.player.reverse();
+                break;
+        }
+    }
+
+    updateTime( props ) {
+        if ( this.state.player ) {
+            this.state.player.pause();
+            this.state.player.currentTime = props.currentTime;
+        }
     }
 
     componentDidMount() {
         const {timing,keyframes} = this.props;
 
         // create data structures for props
-        this.keyframes = new List(keyframes);
+        this.keyframes = keyframes;
         this.timing = new Map(timing);
 
         // start the animation
@@ -54,7 +99,7 @@ class Animation extends Animatable {
     }
 
     render() {
-        const {children,getRef} = this.props;
+        const {children,getRef,timing} = this.props;
         const {player} = this.state;
 
         this.element = React.cloneElement(children, {
@@ -64,11 +109,20 @@ class Animation extends Animatable {
                     getRef(node);
                 }
                 return node;
-            }, player
+            },
+            player,
+            timelineLength: isFinite(timing.iterations)
+                ? timing.delay + timing.duration * timing.iterations
+                : 'Infinity'
         });
 
         return Children.only(this.element);
     }
 }
+
+Animation.propTypes = assign({}, Animatable.propTypes, {
+    currentTime: PropTypes.number,
+    playState: PropTypes.oneOf(['running', 'paused', 'finished', 'idle', 'reversed'])
+});
 
 export default Animation;
