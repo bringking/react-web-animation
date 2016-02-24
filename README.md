@@ -34,6 +34,9 @@ and include it in your application.
 
 Animating a component is as simple as wrapping it in an `<Animation>` component and supplying `keyframes` and a `timing` config. 
 ```jsx
+import {Component} from 'react';
+import {Animation} from 'react-web-animation';
+
 
 export default class Basic extends Component {
 
