@@ -23,6 +23,11 @@ react-web-animation has a runtime dependency on the `next` version [Web Animatio
 The easiest way to get this is to grab it from [cdnjs](https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.1.4/web-animations-next.min.js)
 and include it in your application.
 
+## Features
+* Animate Single Elements and control play state (play, pause, stop, reverse)
+* Animate Multiple animations in parallel a `<AnimationGroup>`, controlling them with one timeline
+* Animate Multiple animations serially with a `<AnimationSequence>`, controlling them with one timeline
+
 ## Usage
 
 Animating a component is as simple as wrapping it in an `<Animation>` component and supplying `keyframes` and a `timing` config. 
@@ -60,10 +65,11 @@ export default class Basic extends Component {
     }
 }
 
+```
+### Advanced Usage
 For more advanced usage, head over to the source [documentation](https://github.com/RinconStrategies/react-web-animation/tree/master/src) or 
 check out the [http://react-web-animation.surge.sh](http://react-web-animation.surge.sh)
 
-```
 ## Why?
 
 Why use this over other animation libraries for React? react-web-animation uses the Web Animations API polyfill so
