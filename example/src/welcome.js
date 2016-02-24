@@ -41,7 +41,8 @@ const getOrbitTiming = ( duration, direction ) => {
 };
 
 export default () => <div>
-    <h1>react-web-animation</h1>
+    <h1 style={{marginBottom: '0px'}}>react-web-animation</h1>
+    <h3 style={{marginTop: '0px', color: '#aaa'}}>React components that expose the Web Animations API</h3>
     <p>Check out the examples on the left. More coming soon!</p>
     <p><a href='https://github.com/RinconStrategies/react-web-animation'>Source</a></p>
     <p><a href='https://github.com/RinconStrategies/react-web-animation/tree/master/src'>Documentation</a></p>
