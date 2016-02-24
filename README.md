@@ -16,6 +16,19 @@ in a declarative way.
 ## Demos
 Check out how you can use it here - [http://react-web-animation.surge.sh](http://react-web-animation.surge.sh)
 
+## Why?
+
+Why use this over other animation libraries for React? react-web-animation uses the Web Animations API polyfill so
+eventually it will use the native browser implementation and not depend on any third-party animation frameworks or CSS.
+Chrome has the greatest support for these today and if you view the source on the demos, you can see it isn't using CSS at all!
+
+## Web Animations API
+
+Want to know more about the Web Animations API? Here are some great resources.
+- [Offical Spec](https://w3c.github.io/web-animations/)
+- [Polyfill](https://github.com/web-animations/web-animations-js)
+- [Blog Series by Daniel Wilson](http://danielcwilson.com/blog/2015/07/animations-intro/)
+
 ## Installation
 
 react-web-animation requires the following peer dependencies to be installed
@@ -84,11 +97,6 @@ export default class Basic extends Component {
 For more advanced usage, head over to the source [documentation](https://github.com/RinconStrategies/react-web-animation/tree/master/src) or 
 check out the [http://react-web-animation.surge.sh](http://react-web-animation.surge.sh)
 
-## Why?
-
-Why use this over other animation libraries for React? react-web-animation uses the Web Animations API polyfill so
-eventually it will use the native browser implementation and not depend on any third-party animation frameworks or CSS.
-Chrome has the greatest support for these today and if you view the source on the demos, you can see it isn't using CSS at all!
 
 ## License
 
