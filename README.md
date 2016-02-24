@@ -24,8 +24,8 @@ The easiest way to get this is to grab it from [cdnjs](https://cdnjs.cloudflare.
 and include it in your application.
 
 ## Features
-* Animate Single Elements and control play state (play, pause, stop, reverse)
-* Animate Multiple animations in parallel a `<AnimationGroup>`, controlling them with one timeline
+* Animate Single Elements with a `<Animation>` and control play state (play, pause, stop, reverse)
+* Animate Multiple animations in parallel with a `<AnimationGroup>`, controlling them with one timeline
 * Animate Multiple animations serially with a `<AnimationSequence>`, controlling them with one timeline
 
 ## Usage
