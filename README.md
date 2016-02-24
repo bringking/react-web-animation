@@ -60,6 +60,9 @@ export default class Basic extends Component {
     }
 }
 
+For more advanced usage, head over to the source [documentation](https://github.com/RinconStrategies/react-web-animation/tree/master/src) or 
+check out the [http://react-web-animation.surge.sh](http://react-web-animation.surge.sh)
+
 ```
 ## Why?
 
