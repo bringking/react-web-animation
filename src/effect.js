@@ -5,7 +5,7 @@ import {Map,is} from 'immutable';
 import isEqual from 'lodash.isequal';
 
 /**
- * The Abstract Effect component represents the behavior of a Grouped set of <Animatable/>
+ * The Abstract <Effect/> component represents the behavior of a Grouped set of <Animatable/>
  * components. A sub-type must be provided.
  */
 class Effect extends Component {
@@ -19,7 +19,7 @@ class Effect extends Component {
         /**
          * The type of groupable component.
          */
-        this.type = type || GroupEffect;
+        this.type = type;
 
         /**
          * Store the DOM nodes of the child <Animatable/>
@@ -57,7 +57,8 @@ class Effect extends Component {
 
     getEffectFromKeyframes( keyframeEffects ) {
         // create the group
-        return new this.type(keyframeEffects);
+        let type = window[this.type] || window['GroupEffect'];
+        return new type(keyframeEffects);
     }
 
     componentWillReceiveProps( nextProps ) {

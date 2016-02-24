@@ -22,6 +22,7 @@
     "mocha": true
   },
   "globals": {
+    "window":true,
     "require": true,
     "KeyframeEffect": true,
     "GroupEffect": true,

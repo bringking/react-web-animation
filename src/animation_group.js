@@ -1,13 +1,15 @@
 /* eslint no-unused-vars:0*/
-import React, {Component, Children, PropTypes} from 'react';
-import Animatable from './animatable';
-import {List,is} from 'immutable';
-import isEqual from 'lodash.isequal';
+import React from 'react';
 import Effect from './effect';
 
+/**
+ * <AnimationGroup/> is a grouping element that uses the GroupEffect class provided by the Web Animations API polyfill.
+ * Any <Animatable/> elements in a <AnimationGroup/> will be run in parallel, and <AnimationGroup/> will provide a single
+ * timeline for the GroupEffect.
+ */
 class AnimationGroup extends Effect {
     constructor() {
-        super(GroupEffect);
+        super('GroupEffect');
     }
 }
 

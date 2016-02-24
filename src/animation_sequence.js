@@ -1,13 +1,15 @@
 /* eslint no-unused-vars:0*/
-import React, {Component, Children, PropTypes} from 'react';
-import Animatable from './animatable';
-import {List,is} from 'immutable';
-import isEqual from 'lodash.isequal';
+import React from 'react';
 import Effect from './effect';
 
+/**
+ * <AnimationSequence/> is a grouping element that uses the SequenceEffect class provided by the Web Animations API polyfill.
+ * Any <Animatable/> elements in a <AnimationSequence/> will be run in serial, and <AnimationSequence/> will provide a single
+ * timeline for the SequenceEffect.
+ */
 class AnimationSequence extends Effect {
     constructor() {
-        super(SequenceEffect);
+        super('SequenceEffect');
     }
 }
 

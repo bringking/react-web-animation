@@ -1,9 +1,13 @@
 import React, {Children,PropTypes} from 'react';
-import {Map,List,is} from 'immutable';
+import {Map,is} from 'immutable';
 import Animatable from './animatable';
 import assign from 'lodash.assign';
 import isEqual from 'lodash.isequal';
 
+/**
+ * <Animation/> is a simple implementation of <Animatable/> and controls a single
+ * "player" instance for the wrapped element.
+ */
 class Animation extends Animatable {
     constructor() {
         super();
