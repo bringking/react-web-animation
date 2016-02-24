@@ -165,11 +165,19 @@ Effect.propTypes = {
     children: ( props, propName, componentName ) => {
         const prop = props[propName];
 
+        let typeError;
+        if ( prop.length ) {
+            typeError = prop.some(e => {
+                let instance = new e.type();
+                return !(instance instanceof Animatable);
+            });
+        } else if ( prop.type ) {
+            let instance = new prop.type();
+            typeError = !(instance instanceof Animatable);
+        } else {
+            typeError = true;
+        }
 
-        let typeError = prop.some(e => {
-            let instance = new e.type();
-            return !(instance instanceof Animatable);
-        });
 
         if ( typeError ) {
             return new Error(
