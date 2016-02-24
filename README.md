@@ -1,10 +1,68 @@
 # react-web-animation
 react-web-animation is a set of React components that expose the [Web Animations API](https://github.com/web-animations/web-animations-js)
-in a declarative way. 
+in a declarative way.
+
+## Demos
+Check out how you can use it here - [http://react-web-animation.surge.sh](http://react-web-animation.surge.sh)
 
 ## Installation
 
+react-web-animation requires the following peer dependencies to be installed
+
+```bash
+npm install react
+npm install react-dom
+npm install immutable
+```
 
 ```bash
 npm install react-web-animation
 ```
+
+react-web-animation has a runtime dependency on the `next` version [Web Animations API](https://github.com/web-animations/web-animations-js) polyfill. 
+The easiest way to get this is to grab it from [cdnjs](https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.1.4/web-animations-next.min.js)
+and include it in your application.
+
+## Usage
+
+Animating a component is as simple as wrapping it in an `<Animation>` component and supplying `keyframes` and a `timing` config. 
+```jsx
+
+export default class Basic extends Component {
+
+    getKeyFrames() {
+        return [{ transform: 'scale(1)', opacity: 1, offset: 0 },
+            { transform: 'scale(.5)', opacity: 0.5, offset: 0.3 },
+            { transform: 'scale(.667)', opacity: 0.667, offset: 0.7875 },
+            { transform: 'scale(.6)', opacity: 0.6, offset: 1 }
+        ];
+    }
+
+    getTiming( duration ) {
+        return {
+            duration,
+            easing: 'ease-in-out',
+            delay: 0,
+            iterations: 2,
+            direction: 'alternate',
+            fill: 'forwards'
+        };
+    }
+
+    render() {
+        return
+            <Animation keyframes={this.getKeyFrames()}
+                       timing={this.getTiming(2500)}>
+                <div>
+                    Web Animations API Rocks
+                </div>
+            </Animation>;
+    }
+}
+
+```
+## Why?
+
+Why use this over other animation libraries for React? react-web-animation uses the Web Animations API polyfill so
+eventually it will use the native browser implementation and not depend on any third-party animation frameworks or CSS.
+Chrome has the greatest support for these today and if you view the source on the demos, you can see it isn't using CSS at all!
