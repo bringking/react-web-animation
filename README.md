@@ -1,8 +1,12 @@
 # react-web-animation
-[![Build Status](https://travis-ci.org/RinconStrategies/react-web-animation.svg?branch=master)](https://travis-ci.org/RinconStrategies/react-web-animation)
 
 react-web-animation is a set of React components that expose the [Web Animations API](https://github.com/web-animations/web-animations-js)
 in a declarative way.
+
+[![build status](https://travis-ci.org/RinconStrategies/react-web-animation.svg?branch=master)](https://travis-ci.org/RinconStrategies/react-web-animation)
+[![npm version](https://img.shields.io/npm/v/react-web-animation.svg?style=flat-square)](https://www.npmjs.com/package/react-web-animation)
+[![npm downloads](https://img.shields.io/npm/dm/react-web-animation.svg?style=flat-square)](https://www.npmjs.com/package/react-web-animation)
+
 
 ## Demos
 Check out how you can use it here - [http://react-web-animation.surge.sh](http://react-web-animation.surge.sh)
