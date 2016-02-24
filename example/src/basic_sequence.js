@@ -45,6 +45,7 @@ export default class BasicSequence extends Component {
                 <button onClick={()=>{this.setState({playState: 'reversed'});}}>Reverse ↺</button>
                 <button onClick={()=>{this.setState({playState: 'finished'});}}>Finish ⇥</button>
             </div>
+            <a href='https://github.com/RinconStrategies/react-web-animation/blob/master/example/src/basic_sequence.js'>View Source</a>
             <div
                 style={{display: 'flex',flexDirection: 'column', pointerEvents: 'none',fontWeight:'bold', fontSize: '4rem', alignItems: 'center',justifyContent: 'center',position: 'absolute',top: 0,left: 0,width: '100%',height: '100%'}}>
                 <AnimationSequence playState={this.state.playState} currentTime={this.state.currentTime}>

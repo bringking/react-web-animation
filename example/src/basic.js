@@ -44,6 +44,7 @@ export default class Basic extends Component {
                 <button onClick={()=>{this.setState({playState: 'reversed'});}}>Reverse ↺</button>
                 <button onClick={()=>{this.setState({playState: 'finished'});}}>Finish ⇥</button>
             </div>
+            <a href='https://github.com/RinconStrategies/react-web-animation/blob/master/example/src/basic.js'>View Source</a>
             <Animation playState={this.state.playState} keyframes={this.getKeyFrames()}
                        timing={this.getTiming(2500)} currentTime={this.state.currentTime}>
                 <div
