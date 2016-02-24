@@ -34,7 +34,7 @@ export default class BasicSequence extends Component {
     render() {
         return <div>
             <label>Current Time: </label>
-            <input type="range" min="0" max="8000" value={this.state.currentTime}
+            <input type="range" min="0" max="12000" value={this.state.currentTime}
                    onChange={(e)=>{this.setState({currentTime: parseInt(e.target.value,10)});}}/>
 
             <div>
