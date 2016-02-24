@@ -1,11 +1,16 @@
 {
   "name": "react-web-animation",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "./lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/RinconStrategies/react-web-animation.git"
   },
+  "keywords":[
+    "react",
+    "animation",
+    "web-animations-api"
+  ],
   "author": "Charles King <charlie@rinconstrategies.io> (http://github.com/bringking)",
   "license": "MIT",
   "bugs": {
