@@ -1,11 +1,11 @@
 # react-web-animation
 
+react-web-animation is a set of React components that expose the Web Animations API
+in a declarative way.
+
 <p align="center">
   <img src="https://github.com/RinconStrategies/react-web-animation/blob/master/react_gif.gif" />
 </p>
-
-react-web-animation is a set of React components that expose the Web Animations API
-in a declarative way.
 
 
 [![build status](https://travis-ci.org/RinconStrategies/react-web-animation.svg?branch=master)](https://travis-ci.org/RinconStrategies/react-web-animation)
