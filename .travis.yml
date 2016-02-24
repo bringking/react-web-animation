@@ -9,4 +9,6 @@ install:
   - npm install react-dom
   - npm install immutable
   - npm install
-  - npm build
+  - npm run lint 
+  - npm run test 
+  - npm run build:lib
