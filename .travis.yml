@@ -8,8 +8,4 @@ install:
   - npm install react
   - npm install react-dom
   - npm install immutable
-  - npm install cross-env
   - npm install
-  - npm run lint 
-  - npm run test 
-  - npm run build:lib

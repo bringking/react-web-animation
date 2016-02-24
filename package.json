@@ -36,7 +36,10 @@
     "eslint-plugin-mocha": "^2.0.0",
     "mocha": "*",
     "react-addons-test-utils": "^0.14.7",
-    "source-map": "^0.5.3"
+    "source-map": "^0.5.3",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "webpack": "^1.11.0"
   },
   "peerDependencies": {
     "react": "^0.14.7",
