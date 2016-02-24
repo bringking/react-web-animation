@@ -64,10 +64,10 @@ export default class Basic extends Component {
 
     getKeyFrames() {
         return [
-            { transform: 'scale(1)', opacity: 1, offset: 0 },
-            { transform: 'scale(.5)', opacity: 0.5, offset: 0.3 },
+            { transform: 'scale(1)',    opacity: 1,     offset: 0 },
+            { transform: 'scale(.5)',   opacity: 0.5,   offset: 0.3 },
             { transform: 'scale(.667)', opacity: 0.667, offset: 0.7875 },
-            { transform: 'scale(.6)', opacity: 0.6, offset: 1 }
+            { transform: 'scale(.6)',   opacity: 0.6,   offset: 1 }
         ];
     }
 
