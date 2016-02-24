@@ -103,7 +103,7 @@ class Animation extends Animatable {
     }
 
     render() {
-        const {children,getRef,timing} = this.props;
+        const {children,getRef,timing,playState} = this.props;
         const {player} = this.state;
 
         this.element = React.cloneElement(children, {
@@ -115,6 +115,7 @@ class Animation extends Animatable {
                 return node;
             },
             player,
+            playState,
             timelineLength: isFinite(timing.iterations)
                 ? timing.delay + timing.duration * timing.iterations
                 : 'Infinity'
