@@ -4,6 +4,7 @@
   "description": "Examples for react-web-animation",
   "scripts": {
     "start": "node server.js",
+    "build": "webpack --config webpack.prod.config.js",
     "lint": "eslint src"
   },
   "repository": {

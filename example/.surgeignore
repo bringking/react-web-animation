@@ -1,1 +1,9 @@
 node_modules/
+README.md
+server.js
+webpack.config.js
+webpack.config.prod.js
+LICENSE
+.babelrc
+.surgeignore
+src/
