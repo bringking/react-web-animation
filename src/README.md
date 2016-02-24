@@ -86,5 +86,49 @@ None
 
 ## `<AnimationGroup>`
 
+ The `<AnimationGroup>` component represents the behavior of a Grouped set of `<Animatable/>`
+ components. The sub animations will be run in *parallel* and `<AnimationGroup>` will expose a single
+ `player` to control the timeline
+
+### PropTypes
+- `component`: The element or string representing an element to render as the wrapping element. Defaults to `div`.
+- `children`: `<AnimationGroup>` requires a child elements of type `<Animatable/>`
+- `getRef`: react-web-animation relies on [refs](https://facebook.github.io/react/docs/more-about-refs.html) to access the 
+underlying elements. If you need to access the ref of a wrapped component, use this prop to pass a function in order to 
+store the ref in your containing class.
+- `keyframes`: A set of keyframes that represent the values to animate and their offsets. See the [Spec](https://w3c.github.io/web-animations/#dom-keyframeeffectreadonly-getframes) for details
+- `timing`: An object representing the `AnimationEffectTimingProperties` from the [Spec](https://w3c.github.io/web-animations/#the-animationeffecttimingproperties-dictionary)
+- `currentTime`: Set/Get the current play time of the animation in the form of. The `currentTime` should be set to less than
+the `timelineLength` of the animation which is equal to `longestAnimatable.timing.delay + longestAnimatable.timing.duration * longestAnimatable.timing.iterations`
+- `playState`: Set/Get the current state of the player. Accepts values from the [Spec](https://w3c.github.io/web-animations/#play-states), with
+the exception of `pending`, which didn't make sense to provide a setter for.
+
+### Passed Props
+
+- `player`: A reference to the `Animation` player referenced in the [spec](https://w3c.github.io/web-animations/#the-animation-interface) for
+fine grained control
+
+
 ## `<AnimationSequence>`
 
+ The `<AnimationSequence>` component represents the behavior of a Grouped set of `<Animatable/>`
+ components. The sub animations will be run in *serial* and `<AnimationSequence>` will expose a single
+ `player` to control the timeline
+
+### PropTypes
+- `component`: The element or string representing an element to render as the wrapping element. Defaults to `div`.
+- `children`: `<AnimationGroup>` requires a child elements of type `<Animatable/>`
+- `getRef`: react-web-animation relies on [refs](https://facebook.github.io/react/docs/more-about-refs.html) to access the 
+underlying elements. If you need to access the ref of a wrapped component, use this prop to pass a function in order to 
+store the ref in your containing class.
+- `keyframes`: A set of keyframes that represent the values to animate and their offsets. See the [Spec](https://w3c.github.io/web-animations/#dom-keyframeeffectreadonly-getframes) for details
+- `timing`: An object representing the `AnimationEffectTimingProperties` from the [Spec](https://w3c.github.io/web-animations/#the-animationeffecttimingproperties-dictionary)
+- `currentTime`: Set/Get the current play time of the animation in the form of. The `currentTime` should be set to less than
+the `timelineLength` of the animation which is equal to `(animatable.timing.delay + animatable.timing.duration * animatable.timing.iterations) + animatiable...N `
+- `playState`: Set/Get the current state of the player. Accepts values from the [Spec](https://w3c.github.io/web-animations/#play-states), with
+the exception of `pending`, which didn't make sense to provide a setter for.
+
+### Passed Props
+
+- `player`: A reference to the `Animation` player referenced in the [spec](https://w3c.github.io/web-animations/#the-animation-interface) for
+fine grained control
