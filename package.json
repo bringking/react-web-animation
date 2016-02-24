@@ -2,6 +2,16 @@
   "name": "react-web-animation",
   "version": "0.0.1",
   "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RinconStrategies/react-web-animation.git"
+  },
+  "author": "Charles King <charlie@rinconstrategies.io> (http://github.com/bringking)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RinconStrategies/react-web-animation/issues"
+  },
+  "homepage": "https://github.com/RinconStrategies/react-web-animation",
   "scripts": {
     "prepublish": "npm run build",
     "lint": "eslint src test",
