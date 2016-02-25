@@ -3,6 +3,7 @@ import React, {Component, Children, PropTypes} from 'react';
 import Animatable from './animatable';
 import {Map,is} from 'immutable';
 import isEqual from 'lodash.isequal';
+import assign from 'lodash.assign';
 
 /**
  * The Abstract <Effect/> component represents the behavior of a Grouped set of <Animatable/>
@@ -91,29 +92,31 @@ class Effect extends Component {
     }
 
     updatePlayState( props ) {
-        let currentState = this.state.player.playState;
-        switch ( props.playState ) {
-            case 'running':
-                this.state.player.play();
-                break;
-            case 'paused':
-                if ( currentState !== 'paused' ) {
-                    this.state.player.pause();
-                }
-                break;
-            case 'finished':
-                if ( currentState !== 'finished' ) {
-                    this.state.player.finish();
-                }
-                break;
-            case 'idle':
-                if ( currentState !== 'idle' ) {
-                    this.state.player.cancel();
-                }
-                break;
-            case 'reversed':
-                this.state.player.reverse();
-                break;
+        if ( this.state.player ) {
+            let currentState = this.state.player.playState;
+            switch ( props.playState ) {
+                case 'running':
+                    this.state.player.play();
+                    break;
+                case 'paused':
+                    if ( currentState !== 'paused' ) {
+                        this.state.player.pause();
+                    }
+                    break;
+                case 'finished':
+                    if ( currentState !== 'finished' ) {
+                        this.state.player.finish();
+                    }
+                    break;
+                case 'idle':
+                    if ( currentState !== 'idle' ) {
+                        this.state.player.cancel();
+                    }
+                    break;
+                case 'reversed':
+                    this.state.player.reverse();
+                    break;
+            }
         }
     }
 
@@ -140,7 +143,7 @@ class Effect extends Component {
             });
         });
 
-        return React.createElement(component, {
+        return React.createElement(component, assign({}, this.props, {
             ref: ( node ) => {
                 this.wrapper = node;
                 if ( getRef ) {
@@ -148,7 +151,7 @@ class Effect extends Component {
                 }
                 return node;
             }
-        }, childElements);
+        }), childElements);
     }
 }
 Effect.defaultProps = {

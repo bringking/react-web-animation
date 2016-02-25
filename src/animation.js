@@ -16,7 +16,6 @@ class Animation extends Animatable {
             player: null
         };
     }
-
     /**
      * Start the animation and set the player in the state
      */
