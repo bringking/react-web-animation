@@ -16,6 +16,7 @@ class Animation extends Animatable {
             player: null
         };
     }
+
     /**
      * Start the animation and set the player in the state
      */
@@ -57,30 +58,33 @@ class Animation extends Animatable {
     }
 
     updatePlayState( props ) {
-        let currentState = this.state.player.playState;
-        switch ( props.playState ) {
-            case 'running':
-                this.state.player.play();
-                break;
-            case 'paused':
-                if ( currentState !== 'paused' ) {
-                    this.state.player.pause();
-                }
-                break;
-            case 'finished':
-                if ( currentState !== 'finished' ) {
-                    this.state.player.finish();
-                }
-                break;
-            case 'idle':
-                if ( currentState !== 'idle' ) {
-                    this.state.player.cancel();
-                }
-                break;
-            case 'reversed':
-                this.state.player.reverse();
-                break;
+        if ( this.state.player ) {
+            let currentState = this.state.player.playState;
+            switch ( props.playState ) {
+                case 'running':
+                    this.state.player.play();
+                    break;
+                case 'paused':
+                    if ( currentState !== 'paused' ) {
+                        this.state.player.pause();
+                    }
+                    break;
+                case 'finished':
+                    if ( currentState !== 'finished' ) {
+                        this.state.player.finish();
+                    }
+                    break;
+                case 'idle':
+                    if ( currentState !== 'idle' ) {
+                        this.state.player.cancel();
+                    }
+                    break;
+                case 'reversed':
+                    this.state.player.reverse();
+                    break;
+            }
         }
+
     }
 
     updateTime( props ) {
