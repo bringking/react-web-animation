@@ -9,20 +9,10 @@ export default class SpinningDots extends Component {
         super();
         this.state = {
             layers: 9,
-            start: 4,
-            width: 0,
-            height: 0
+            start: 4
         };
     }
 
-    componentDidMount() {
-        // store the height and width of the container
-        let width = this.refs.container.clientWidth;
-        let height = this.refs.container.clientHeight;
-
-        // now that we know the size, re-render the stars
-        this.setState({ width, height });
-    }
 
     getStyles() {
         return {
