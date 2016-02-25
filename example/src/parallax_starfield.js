@@ -19,6 +19,7 @@ export default class ParallaxStarfield extends Component {
         let width = this.refs.container.clientWidth;
         let height = this.refs.container.clientHeight;
 
+        // now that we know the size, re-render the stars
         this.setState({ width, height });
     }
 
@@ -65,10 +66,26 @@ export default class ParallaxStarfield extends Component {
                 opacity: 1,
                 borderRadius: '50%',
                 position: 'absolute'
+            },
+            sourceLink: {
+                textDecoration: 'none',
+                padding: '6px',
+                fontFamily: 'Roboto',
+                fontWeight: 'bold',
+                backgroundColor: 'white',
+                color: 'black',
+                position: 'absolute',
+                top: 0,
+                right: 0
             }
         };
     }
 
+    /**
+     * Get the stars for a specific layer
+     * @param layer
+     * @returns {*}
+     */
     getStarsForLayer( layer ) {
         const {starCount} = this.state;
         let style = this.getStyles();
@@ -90,6 +107,11 @@ export default class ParallaxStarfield extends Component {
         });
     }
 
+    /**
+     * Get a certain number of parallax layers wrapped in a single AnimationGroup
+     * @param count
+     * @returns {XML}
+     */
     getLayers( count ) {
         return <AnimationGroup style={{position: 'absolute', width: '100%', height: '100%'}}>
             {
@@ -106,11 +128,17 @@ export default class ParallaxStarfield extends Component {
     }
 
     render() {
-        const {body} = this.getStyles();
+        const {body,sourceLink} = this.getStyles();
         const {layerCount} = this.state;
 
         return <div style={body} ref="container">
-            { this.state.width && this.state.height ? this.getLayers(layerCount) : null}
+            { this.state.width && this.state.height
+                ? this.getLayers(layerCount)
+                : null}
+            <a style={sourceLink}
+               href='https://github.com/RinconStrategies/react-web-animation/blob/master/example/src/parallax_starfield.js'>
+                View Source
+            </a>
         </div>;
     }
 }
