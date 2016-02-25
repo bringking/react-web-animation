@@ -18,9 +18,11 @@ export default class App extends Component {
                     <li style={this.getListItemStyle()}><Link to='/basic'>Basic</Link></li>
                     <li style={this.getListItemStyle()}><Link to='/basic-group'>Basic Group</Link></li>
                     <li style={this.getListItemStyle()}><Link to='/basic-sequence'>Basic Sequence</Link></li>
+                    <li style={this.getListItemStyle()}><Link to='/parallax-starfield'>Parallax Starfield</Link></li>
+
                 </ul>
             </div>
-            <div style={{width: '80vw',height: '100vh',padding: '12px',position: 'relative'}}>
+            <div style={{width: '80vw',height: '100vh',padding: '12px',position: 'relative',overflow:'hidden'}}>
                 {this.props.children || <Welcome/>}
             </div>
 

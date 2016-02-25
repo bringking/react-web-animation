@@ -7,12 +7,15 @@ import App from './App';
 import Basic from './basic';
 import BasicGroup from './basic_group';
 import BasicSequence from './basic_sequence';
+import ParallaxStarfield from './parallax_starfield';
 
 render(<Router history={browserHistory}>
     <Route path='/' component={App}>
         <Route path='/basic' component={Basic}/>
         <Route path='/basic-group' component={BasicGroup}/>
         <Route path='/basic-sequence' component={BasicSequence}/>
+        <Route path='/parallax-starfield' component={ParallaxStarfield}/>
+
         <Route path='*' component={App}/>
     </Route>
 </Router>, document.getElementById('root'));
