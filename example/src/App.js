@@ -20,6 +20,7 @@ export default class App extends Component {
                     <li style={this.getListItemStyle()}><Link to='/basic-sequence'>Basic Sequence</Link></li>
                     <li style={this.getListItemStyle()}><Link to='/parallax-starfield'>Parallax Starfield</Link></li>
                     <li style={this.getListItemStyle()}><Link to='/spinning-dots'>Spinning Dots</Link></li>
+                    <li style={this.getListItemStyle()}><Link to='/animate-css'>AnimateCSS</Link></li>
 
                 </ul>
             </div>

@@ -9,6 +9,7 @@ import BasicGroup from './basic_group';
 import BasicSequence from './basic_sequence';
 import ParallaxStarfield from './parallax_starfield';
 import SpinningDots from './spinning_dots';
+import AnimateCss from './animate_css';
 
 render(<Router history={browserHistory}>
     <Route path='/' component={App}>
@@ -17,6 +18,7 @@ render(<Router history={browserHistory}>
         <Route path='/basic-sequence' component={BasicSequence}/>
         <Route path='/parallax-starfield' component={ParallaxStarfield}/>
         <Route path='/spinning-dots' component={SpinningDots}/>
+        <Route path='/animate-css' component={AnimateCss}/>
 
         <Route path='*' component={App}/>
     </Route>
