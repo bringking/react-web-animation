@@ -1,16 +1,20 @@
 import React,{ Component } from 'react';
 import {Animation} from '../../lib';
-import range from 'lodash.range';
-import assign from 'lodash.assign';
-import flatten from 'lodash.flatten';
 
 export default class AnimateCss extends Component {
     constructor() {
         super();
+
+        this.animations = Object.keys(animate);
+
         this.state = {
             selected: 'bounce',
-            selections: Object.keys(animate)
+            playState: 'running',
+            selections: this.animations
         };
+
+        this.onBoxClick = this.onBoxClick.bind(this);
+        this.onChangeAnimation = this.onChangeAnimation.bind(this);
     }
 
 
@@ -27,7 +31,8 @@ export default class AnimateCss extends Component {
                 height: '100%',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                flexDirection: 'column'
             },
 
 
@@ -62,12 +67,30 @@ export default class AnimateCss extends Component {
     }
 
 
+    onBoxClick() {
+        // TODO this feels cumbersome. Need a better way to control the player
+        this.setState({ playState: 'running' });
+    }
+
+    onChangeAnimation( e ) {
+        this.setState({ selected: e.target.value });
+    }
+
     render() {
-        const {body,sourceLink,box} = this.getStyles();
+        const {body,sourceLink,box,controls} = this.getStyles();
+        const {keyframes,timing} = animate[this.state.selected]();
+        const {selections, playState, selected} = this.state;
 
         return <div style={body} ref="container">
             <div id="boxContainer">
-                <div style={box} id="box"></div>
+                <Animation keyframes={keyframes} timing={timing} playState={playState}>
+                    <div style={box} id="box" onClick={this.onBoxClick}></div>
+                </Animation>
+            </div>
+            <div id="controls" style={controls}>
+                <select id="option" onChange={this.onChangeAnimation} value={selected}>
+                    {selections.map(( o, idx ) =><option key={idx}>{o}</option>)}
+                </select>
             </div>
             <a style={sourceLink}
                href='https://github.com/RinconStrategies/react-web-animation/blob/master/example/src/animate_css.js'>
@@ -76,8 +99,13 @@ export default class AnimateCss extends Component {
         </div>;
     }
 }
+
+/**
+ * Animations ported from  http://web-animations.github.io/web-animations-demos/#animate_css which were ported from the
+ * popular Animate.css library
+ */
 const animate = {
-    bounce( iterations ) {
+    bounce( iterations = 1 ) {
         const keyframes = [
             { transform: 'translate3d(0,0,0)', offset: 0 },
             { transform: 'translate3d(0,0,0)', offset: 0.2 },
@@ -91,8 +119,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.215, 0.610, 0.355, 1.000)' };
         return { keyframes, timing };
     },
-    bounceIn( iterations )
-    {
+    bounceIn( iterations = 1 ) {
         const keyframes = [
             { transform: 'scale3d(.3, .3, .3)', opacity: '0', offset: 0 },
             { transform: 'scale3d(1.1, 1.1, 1.1)', offset: 0.2 },
@@ -103,7 +130,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.215, 0.610, 0.355, 1.000)' };
         return { keyframes, timing };
     },
-    bounceOut( iterations ) {
+    bounceOut( iterations = 1 ) {
         const keyframes = [
             { transform: 'none', opacity: '1', offset: 0 },
             { transform: 'scale3d(.9, .9, .9)', opacity: '1', offset: 0.2 },
@@ -113,7 +140,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    bounceInDown( iterations ) {
+    bounceInDown( iterations = 1 ) {
         const keyframes = [
             { transform: 'translate3d(0, -3000px, 0)', opacity: '0', offset: 0 },
             { transform: 'translate3d(0, 25px, 0)', opacity: '1', offset: 0.6 },
@@ -123,7 +150,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.215, 0.610, 0.355, 1.000)' };
         return { keyframes, timing };
     },
-    bounceOutDown( iterations ) {
+    bounceOutDown( iterations = 1 ) {
         const keyframes = [
             { transform: 'none', opacity: '1', offset: 0 },
             { transform: 'translate3d(0, 50px, 0)', opacity: '1', offset: 0.2 },
@@ -133,7 +160,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    bounceInUp( iterations ) {
+    bounceInUp( iterations = 1 ) {
         const keyframes = [
             { transform: 'translate3d(0, 3000px, 0)', opacity: '0', offset: 0 },
             { transform: 'translate3d(0, -25px, 0)', opacity: '1', offset: 0.6 },
@@ -143,7 +170,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.215, 0.610, 0.355, 1.000)' };
         return { keyframes, timing };
     },
-    bounceOutUp( iterations ) {
+    bounceOutUp( iterations = 1 ) {
         const keyframes = [
             { transform: 'none', opacity: '1', offset: 0 },
             { transform: 'translate3d(0, 50px, 0)', opacity: '1', offset: 0.2 },
@@ -153,7 +180,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    bounceInLeft( iterations ) {
+    bounceInLeft( iterations = 1 ) {
         const keyframes = [
             { transform: 'translate3d(-3000px, 0, 0)', opacity: '0', offset: 0 },
             { transform: 'translate3d(25px, 0, 0)', opacity: '1', offset: 0.6 },
@@ -163,7 +190,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.215, 0.610, 0.355, 1.000)' };
         return { keyframes, timing };
     },
-    bounceOutLeft( iterations ) {
+    bounceOutLeft( iterations = 1 ) {
         const keyframes = [
             { transform: 'none', opacity: '1', offset: 0 },
             { transform: 'translate3d(100px, 0, 0)', opacity: '1', offset: 0.2 },
@@ -173,7 +200,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    bounceInRight( iterations ) {
+    bounceInRight( iterations = 1 ) {
         const keyframes = [
             { transform: 'translate3d(3000px, 0, 0)', opacity: '0', offset: 0 },
             { transform: 'translate3d(-25px, 0, 0)', opacity: '1', offset: 0.6 },
@@ -183,7 +210,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.215, 0.610, 0.355, 1.000)' };
         return { keyframes, timing };
     },
-    bounceOutRight( iterations ) {
+    bounceOutRight( iterations = 1 ) {
         const keyframes = [
             { transform: 'none', opacity: '1', offset: 0 },
             { transform: 'translate3d(100px, 0, 0)', opacity: '1', offset: 0.2 },
@@ -193,7 +220,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    flip( iterations ) {
+    flip( iterations = 1 ) {
         const keyframes = [
             { transform: 'perspective(400px) rotate3d(0, 1, 0, -360deg)', offset: 0 },
             { transform: 'perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg)', offset: 0.4 },
@@ -203,7 +230,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'ease-in' };
         return { keyframes, timing };
     },
-    flipInX( iterations ) {
+    flipInX( iterations = 1 ) {
         const keyframes = [
             { transform: 'perspective(400px) rotate3d(1, 0, 0, 90deg)', opacity: '0', offset: 0 },
             { transform: 'perspective(400px) rotate3d(1, 0, 0, -20deg)', offset: 0.4 },
@@ -213,7 +240,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'ease-in' };
         return { keyframes, timing };
     },
-    flipOutX( iterations ) {
+    flipOutX( iterations = 1 ) {
         const keyframes = [
             { transform: 'perspective(400px)', opacity: '1', offset: 0 },
             { transform: 'perspective(400px) rotate3d(1, 0, 0, -20deg)', opacity: '1', offset: 0.3 },
@@ -221,7 +248,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    flipInY( iterations ) {
+    flipInY( iterations = 1 ) {
         const keyframes = [
             { transform: 'perspective(400px) rotate3d(0, 1, 0, 90deg)', opacity: '0', offset: 0 },
             { transform: 'perspective(400px) rotate3d(0, 1, 0, -20deg)', offset: 0.4 },
@@ -231,7 +258,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'ease-in' };
         return { keyframes, timing };
     },
-    flipOutY( iterations ) {
+    flipOutY( iterations = 1 ) {
         const keyframes = [
             { transform: 'perspective(400px)', opacity: '1', offset: 0 },
             { transform: 'perspective(400px) rotate3d(0, 1, 0, -20deg)', opacity: '1', offset: 0.3 },
@@ -239,7 +266,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    flash( iterations ) {
+    flash( iterations = 1 ) {
         const keyframes = [
             { opacity: '1', offset: 0 },
             { opacity: '0', offset: 0.25 },
@@ -249,7 +276,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    pulse( iterations ) {
+    pulse( iterations = 1 ) {
         const keyframes = [
             { transform: 'scale3d(1, 1, 1)', offset: 0 },
             { transform: 'scale3d(1.05, 1.05, 1.05)', offset: 0.5 },
@@ -257,7 +284,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    rubberBand( iterations ) {
+    rubberBand( iterations = 1 ) {
         const keyframes = [
             { transform: 'scale3d(1, 1, 1)', offset: 0 },
             { transform: 'scale3d(1.25, 0.75, 1)', offset: 0.3 },
@@ -269,7 +296,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    lightSpeedInRight( iterations ) {
+    lightSpeedInRight( iterations = 1 ) {
         const keyframes = [
             { transform: 'translate3d(100%, 0, 0) skewX(-30deg)', opacity: '0', offset: 0 },
             { transform: 'skewX(20deg)', opacity: '1', offset: 0.6 },
@@ -278,13 +305,13 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    lightSpeedOutRight( iterations ) {
+    lightSpeedOutRight( iterations = 1 ) {
         const keyframes = [{ transform: 'none', opacity: '1 ', offset: 0 },
             { transform: 'translate3d(100%, 0, 0) skewX(30deg)', opacity: '0', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    lightSpeedInLeft( iterations ) {
+    lightSpeedInLeft( iterations = 1 ) {
         const keyframes = [
             { transform: 'translate3d(-100%, 0, 0) skewX(-30deg)', opacity: '0', offset: 0 },
             { transform: 'skewX(20deg)', opacity: '1', offset: 0.6 },
@@ -293,13 +320,13 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    lightSpeedOutLeft( iterations ) {
+    lightSpeedOutLeft( iterations = 1 ) {
         const keyframes = [{ transform: 'none', opacity: '1 ', offset: 0 },
             { transform: 'translate3d(-100%, 0, 0) skewX(30deg)', opacity: '0', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    shake( iterations ) {
+    shake( iterations = 1 ) {
         const keyframes = [
             { transform: 'translate3d(0, 0, 0)', offset: 0 },
             { transform: 'translate3d(-10px, 0, 0)', offset: 0.1 },
@@ -315,7 +342,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    swing( iterations ) {
+    swing( iterations = 1 ) {
         const keyframes = [
             { transform: 'translate(0%)', offset: 0 },
             { transform: 'rotate3d(0, 0, 1, 15deg)', offset: 0.2 },
@@ -326,7 +353,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    tada( iterations ) {
+    tada( iterations = 1 ) {
         const keyframes = [
             { transform: 'scale3d(1, 1, 1)', offset: 0 },
             { transform: 'scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg)', offset: 0.1 },
@@ -342,7 +369,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    wobble( iterations ) {
+    wobble( iterations = 1 ) {
         const keyframes = [
             { transform: 'translate(0%)', offset: 0 },
             { transform: 'translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg)', offset: 0.15 },
@@ -353,128 +380,128 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeIn( iterations ) {
+    fadeIn( iterations = 1 ) {
         const keyframes = [
             { opacity: '0', offset: 0 },
             { opacity: '1', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeOut( iterations ) {
+    fadeOut( iterations = 1 ) {
         const keyframes = [
             { opacity: '1', offset: 0 },
             { opacity: '0', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeInDown( iterations ) {
+    fadeInDown( iterations = 1 ) {
         const keyframes = [
             { opacity: '0', transform: 'translate3d(0, -100%, 0)', offset: 0 },
             { opacity: '1', transform: 'none', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeOutDown( iterations ) {
+    fadeOutDown( iterations = 1 ) {
         const keyframes = [{ opacity: '1', transform: 'none', offset: 0 },
             { opacity: '0', transform: 'translate3d(0, 100%, 0)', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeOutUp( iterations ) {
+    fadeOutUp( iterations = 1 ) {
         const keyframes = [{ opacity: '1', transform: 'none', offset: 0 },
             { opacity: '0', transform: 'translate3d(0, -100%, 0)', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeOutUpBig( iterations ) {
+    fadeOutUpBig( iterations = 1 ) {
         const keyframes = [
             { opacity: '1', transform: 'none', offset: 0 },
             { opacity: '0', transform: 'translate3d(0, -2000px, 0)', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeInUp( iterations ) {
+    fadeInUp( iterations = 1 ) {
         const keyframes = [
             { opacity: '0', transform: 'translate3d(0, 100%, 0)', offset: 0 },
             { opacity: '1', transform: 'none', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeInDownBig( iterations ) {
+    fadeInDownBig( iterations = 1 ) {
         const keyframes = [
             { opacity: '0', transform: 'translate3d(0, -2000px, 0)', offset: 0 },
             { opacity: '1', transform: 'none', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeOutDownBig( iterations ) {
+    fadeOutDownBig( iterations = 1 ) {
         const keyframes = [{ opacity: '1', transform: 'none', offset: 0 },
             { opacity: '0', transform: 'translate3d(0, 2000px, 0)', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeInUpBig( iterations ) {
+    fadeInUpBig( iterations = 1 ) {
         const keyframes = [
             { opacity: '0', transform: 'translate3d(0, 2000px, 0)', offset: 0 },
             { opacity: '1', transform: 'none', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeInRightBig( iterations ) {
+    fadeInRightBig( iterations = 1 ) {
         const keyframes = [
             { opacity: '0', transform: 'translate3d(2000px, 0, 0)', offset: 0 },
             { opacity: '1', transform: 'none', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeOutLeftBig( iterations ) {
+    fadeOutLeftBig( iterations = 1 ) {
         const keyframes = [{ opacity: '1', transform: 'none', offset: 0 },
             { opacity: '0', transform: 'translate3d(-2000px, 0, 0)', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeInLeft( iterations ) {
+    fadeInLeft( iterations = 1 ) {
         const keyframes = [
             { opacity: '0', transform: 'translate3d(-100%, 0, 0)', offset: 0 },
             { opacity: '1', transform: 'none', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeInLeftBig( iterations ) {
+    fadeInLeftBig( iterations = 1 ) {
         const keyframes = [
             { opacity: '0', transform: 'translate3d(-2000px, 0, 0)', offset: 0 },
             { opacity: '1', transform: 'none', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeInRight( iterations ) {
+    fadeInRight( iterations = 1 ) {
         const keyframes = [
             { opacity: '0', transform: 'translate3d(100%, 0, 0)', offset: 0 },
             { opacity: '1', transform: 'none', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeOutLeft( iterations ) {
+    fadeOutLeft( iterations = 1 ) {
         const keyframes = [{ opacity: '1', transform: 'none', offset: 0 },
             { opacity: '0', transform: 'translate3d(-100%, 0, 0)', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeOutRight( iterations ) {
+    fadeOutRight( iterations = 1 ) {
         const keyframes = [
             { opacity: '1', transform: 'none', offset: 0 },
             { opacity: '0', transform: 'translate3d(100%, 0, 0)', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    fadeOutRightBig( iterations ) {
+    fadeOutRightBig( iterations = 1 ) {
         const keyframes = [
             { opacity: '1', transform: 'none', offset: 0 },
             { opacity: '0', transform: 'translate3d(2000px, 0, 0)', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    rollIn( iterations ) {
+    rollIn( iterations = 1 ) {
         const keyframes = [{
             transform: 'translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg)',
             opacity: '0',
@@ -484,19 +511,19 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    rollOut( iterations ) {
+    rollOut( iterations = 1 ) {
         const keyframes = [{ transform: 'none', opacity: '1', offset: 0 },
             { transform: 'translate3d(100%, 0, 0) rotate3d(0, 0, 1, -120deg)', opacity: '0', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    zoomIn( iterations ) {
+    zoomIn( iterations = 1 ) {
         const keyframes = [{ transform: 'scale3d(.3, .3, .3)  ', opacity: '0', offset: 0 },
             { transform: 'none', opacity: '1', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    zoomOutDown( iterations ) {
+    zoomOutDown( iterations = 1 ) {
 
         const keyframes = [{ transform: 'none', opacity: '1', transformOrigin: 'center bottom', offset: 0 },
             {
@@ -514,7 +541,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.550, 0.055, 0.675, 0.190)' };
         return { keyframes, timing };
     },
-    zoomOutUp( iterations ) {
+    zoomOutUp( iterations = 1 ) {
 
         const keyframes = [{ transform: 'none', opacity: '1', transformOrigin: 'center bottom', offset: 0 },
             {
@@ -532,7 +559,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.550, 0.055, 0.675, 0.190)' };
         return { keyframes, timing };
     },
-    zoomOutRight( iterations ) {
+    zoomOutRight( iterations = 1 ) {
 
         const keyframes = [{ transform: 'none', opacity: '1', transformOrigin: 'right center', offset: 0 },
             {
@@ -550,7 +577,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.550, 0.055, 0.675, 0.190)' };
         return { keyframes, timing };
     },
-    zoomOutLeft( iterations ) {
+    zoomOutLeft( iterations = 1 ) {
 
         const keyframes = [{ transform: 'none', opacity: '1', transformOrigin: 'left center', offset: 0 },
             {
@@ -568,41 +595,41 @@ const animate = {
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.550, 0.055, 0.675, 0.190)' };
         return { keyframes, timing };
     },
-    zoomInDown( iterations ) {
+    zoomInDown( iterations = 1 ) {
         const keyframes = [{ transform: 'scale3d(.1, .1, .1) translate3d(0, -1000px, 0)', opacity: '0', offset: 0 },
             { transform: 'scale3d(.475, .475, .475) translate3d(0, 60px, 0)', opacity: '1', offset: 0.6 },
             { transform: 'none', opacity: '1', offset: 1 }];
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.550, 0.055, 0.675, 0.190)' };
         return { keyframes, timing };
     },
-    zoomInLeft( iterations ) {
+    zoomInLeft( iterations = 1 ) {
         const keyframes = [{ transform: 'scale3d(.1, .1, .1) translate3d(-1000px, 0, 0)', opacity: '0', offset: 0 },
             { transform: 'scale3d(.475, .475, .475) translate3d(10px, 0, 0)', opacity: '1', offset: 0.6 },
             { transform: 'none', opacity: '1', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    zoomInRight( iterations ) {
+    zoomInRight( iterations = 1 ) {
         const keyframes = [{ transform: 'scale3d(.1, .1, .1) translate3d(1000px, 0, 0)', opacity: '0', offset: 0 },
             { transform: 'scale3d(.475, .475, .475) translate3d(-10px, 0, 0)', opacity: '1', offset: 0.6 },
             { transform: 'none', opacity: '1', offset: 1 }];
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.550, 0.055, 0.675, 0.190)' };
         return { keyframes, timing };
     },
-    zoomInUp( iterations ) {
+    zoomInUp( iterations = 1 ) {
         const keyframes = [{ transform: 'scale3d(.1, .1, .1) translate3d(0, 1000px, 0)', opacity: '0', offset: 0 },
             { transform: 'scale3d(.475, .475, .475) translate3d(0, -60px, 0)', opacity: '1', offset: 0.6 },
             { transform: 'none', opacity: '1', offset: 1 }];
         const timing = { duration: 900, iterations: iterations, easing: 'cubic-bezier(0.550, 0.055, 0.675, 0.190)' };
         return { keyframes, timing };
     },
-    zoomOut( iterations ) {
+    zoomOut( iterations = 1 ) {
         const keyframes = [{ transform: 'none', opacity: '1', offset: 0 },
             { transform: 'scale3d(.3, .3, .3)  ', opacity: '0', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    rotateIn( iterations ) {
+    rotateIn( iterations = 1 ) {
 
         const keyframes = [{
             transform: 'rotate3d(0, 0, 1, -200deg)',
@@ -614,7 +641,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    rotateInDownLeft( iterations ) {
+    rotateInDownLeft( iterations = 1 ) {
 
         const keyframes = [{
             transform: 'rotate3d(0, 0, 1, -45deg)',
@@ -626,7 +653,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    rotateInDownRight( iterations ) {
+    rotateInDownRight( iterations = 1 ) {
 
         const keyframes = [{
             transform: 'rotate3d(0, 0, 1, 45deg)',
@@ -638,7 +665,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    rotateInUpLeft( iterations ) {
+    rotateInUpLeft( iterations = 1 ) {
 
         const keyframes = [{
             transform: 'rotate3d(0, 0, 1, 45deg)',
@@ -650,7 +677,7 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    rotateInUpRight( iterations ) {
+    rotateInUpRight( iterations = 1 ) {
 
         const keyframes = [{
             transform: 'rotate3d(0, 0, 1, -45deg)',
@@ -662,21 +689,21 @@ const animate = {
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    rotateOutDownLeft( iterations ) {
+    rotateOutDownLeft( iterations = 1 ) {
 
         const keyframes = [{ transform: 'none', opacity: '1', transformOrigin: 'left bottom', offset: 0 },
             { transform: 'rotate3d(0, 0, 1, 45deg)', opacity: '0', transformOrigin: 'left bottom', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    rotateOutDownRight( iterations ) {
+    rotateOutDownRight( iterations = 1 ) {
 
         const keyframes = [{ transform: 'none', opacity: '1', transformOrigin: 'right bottom', offset: 0 },
             { transform: 'rotate3d(0, 0, 1, -45deg)', opacity: '0', transformOrigin: 'right bottom', offset: 1 }];
         const timing = { duration: 900, iterations: iterations };
         return { keyframes, timing };
     },
-    rotateOutUpLeft( iterations ) {
+    rotateOutUpLeft( iterations = 1 ) {
 
         const keyframes = [{ transform: 'none', opacity: '1', transformOrigin: 'left bottom', offset: 0 },
             { transform: 'rotate3d(0, 0, 1, -45deg)', opacity: '0', transformOrigin: 'left bottom', offset: 1 }];
@@ -684,7 +711,7 @@ const animate = {
 
         return { keyframes, timing };
     },
-    rotateOutUpRight( iterations ) {
+    rotateOutUpRight( iterations = 1 ) {
 
         const keyframes = [{ transform: 'none', opacity: '1', transformOrigin: 'right bottom', offset: 0 },
             { transform: 'rotate3d(0, 0, 1, 45deg)', opacity: '0', transformOrigin: 'right bottom', offset: 1 }];
@@ -692,7 +719,7 @@ const animate = {
 
         return { keyframes, timing };
     },
-    rotateOut( iterations ) {
+    rotateOut( iterations = 1 ) {
 
         const keyframes = [{ transform: 'none', opacity: '1', transformOrigin: 'center', offset: 0 },
             { transform: 'rotate3d(0, 0, 1, 200deg)', opacity: '0', transformOrigin: 'center', offset: 1 }];
