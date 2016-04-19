@@ -4,6 +4,7 @@ import Animatable from './animatable';
 import {Map,is} from 'immutable';
 import isEqual from 'lodash.isequal';
 import assign from 'lodash.assign';
+import playable from './mixins/playable';
 
 /**
  * The Abstract <Effect/> component represents the behavior of a Grouped set of <Animatable/>
@@ -37,8 +38,7 @@ class Effect extends Component {
     }
 
     startAnimation() {
-        const player = document.timeline.play(this.effect);
-        this.setState({ player });
+        this.setPlayer(document.timeline.play(this.effect));
     }
 
     getKeyframeEffectsFromChildren( props ) {
@@ -89,44 +89,9 @@ class Effect extends Component {
 
         // start the animation
         this.startAnimation();
+        // But make sure that we honor the initial playState, if set.
+        this.updatePlayState(this.props.playState);
     }
-
-    updatePlayState( props ) {
-        if ( this.state.player ) {
-            let currentState = this.state.player.playState;
-            switch ( props.playState ) {
-                case 'running':
-                    this.state.player.play();
-                    break;
-                case 'paused':
-                    if ( currentState !== 'paused' ) {
-                        this.state.player.pause();
-                    }
-                    break;
-                case 'finished':
-                    if ( currentState !== 'finished' ) {
-                        this.state.player.finish();
-                    }
-                    break;
-                case 'idle':
-                    if ( currentState !== 'idle' ) {
-                        this.state.player.cancel();
-                    }
-                    break;
-                case 'reversed':
-                    this.state.player.reverse();
-                    break;
-            }
-        }
-    }
-
-    updateTime( props ) {
-        if ( this.state.player ) {
-            this.state.player.pause();
-            this.state.player.currentTime = props.currentTime;
-        }
-    }
-
 
     render() {
         const {children,component, getRef} = this.props;
@@ -154,9 +119,12 @@ class Effect extends Component {
         }), childElements);
     }
 }
+assign(Effect.prototype, playable);
+
 Effect.defaultProps = {
     component: 'div'
 };
+
 Effect.propTypes = {
     getRef: PropTypes.func,
     currentTime: PropTypes.number,
@@ -180,7 +148,6 @@ Effect.propTypes = {
         } else {
             typeError = true;
         }
-
 
         if ( typeError ) {
             return new Error(
