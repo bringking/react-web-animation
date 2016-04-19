@@ -44,7 +44,7 @@
     "dirty-chai": "^1.2.2",
     "enzyme": "^2.0.0",
     "eslint": "^2.3.0",
-    "eslint-plugin-mocha": "^2.3.0",
+    "eslint-plugin-mocha": "^2.2.0",
     "mocha": "*",
     "react": ">=0.14.0 <16.0.0",
     "react-addons-test-utils": "^0.14.7",
