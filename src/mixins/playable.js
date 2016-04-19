@@ -13,40 +13,48 @@ export default {
         return player;
     },
 
-    updatePlayState( player, playState ) {
-        if ( player ) {
-            let currentState = player.playState;
-            switch ( playState ) {
-                case 'running':
-                    player.play();
-                    break;
-                case 'paused':
-                    if ( currentState !== 'paused' ) {
-                        player.pause();
-                    }
-                    break;
-                case 'finished':
-                    if ( currentState !== 'finished' ) {
-                        player.finish();
-                    }
-                    break;
-                case 'idle':
-                    if ( currentState !== 'idle' ) {
-                        player.cancel();
-                    }
-                    break;
-                case 'reversed':
-                    player.reverse();
-                    break;
-            }
+    /**
+     * Shorthand for updating all relevant player state encoded into `props`.
+     */
+    updatePlayer( props, player ) {
+        console.log('updatePlayer(', props, player, ')');
+        this.updatePlayState(props.playState, player);
+        this.updateTime(props.currentTime, player);
+    },
+
+    updatePlayState( playState, player = this.state.player ) {
+        console.log('updatePlayState(', playState, player, ')');
+        if ( !playState || !player || player.currentState === playState ) {
+            return;
+        }
+
+        switch ( playState ) {
+            case 'running':
+                player.play();
+                break;
+            case 'paused':
+                player.pause();
+                break;
+            case 'finished':
+                player.finish();
+                break;
+            case 'idle':
+                player.cancel();
+                break;
+            case 'reversed':
+                player.reverse();
+                break;
         }
     },
 
-    updateTime( props ) {
-        if ( this.state.player ) {
-            this.state.player.pause();
-            this.state.player.currentTime = props.currentTime;
+    updateTime( currentTime, player = this.state.player ) {
+        console.log('updateTime(', currentTime, player, ')');
+        if ( !player || typeof currentTime !== 'number' ) {
+            return;
         }
+
+        player.pause();
+        player.currentTime = currentTime;
     },
 
 };

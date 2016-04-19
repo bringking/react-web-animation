@@ -73,13 +73,7 @@ class Effect extends Component {
             this.startAnimation();
         }
 
-        // update play state
-        this.updatePlayState(this.state.player, nextProps);
-
-        // update time
-        if ( nextProps.currentTime !== undefined && this.props.currentTime !== currentTime ) {
-            this.updateTime(nextProps);
-        }
+        this.updatePlayer(nextProps);
     }
 
     componentDidMount() {
@@ -90,7 +84,7 @@ class Effect extends Component {
         // start the animation
         const player = this.startAnimation();
         // But make sure that we honor the initial playState, if set.
-        this.updatePlayState(player, this.props.playState);
+        this.updatePlayer(this.props, player);
     }
 
     render() {
