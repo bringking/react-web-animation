@@ -38,7 +38,7 @@ class Effect extends Component {
     }
 
     startAnimation() {
-        this.setPlayer(document.timeline.play(this.effect));
+        return this.setPlayer(document.timeline.play(this.effect));
     }
 
     getKeyframeEffectsFromChildren( props ) {
@@ -74,7 +74,7 @@ class Effect extends Component {
         }
 
         // update play state
-        this.updatePlayState(nextProps);
+        this.updatePlayState(this.state.player, nextProps);
 
         // update time
         if ( nextProps.currentTime !== undefined && this.props.currentTime !== currentTime ) {
@@ -88,9 +88,9 @@ class Effect extends Component {
         this.effect = this.getEffectFromKeyframes(this.keyframeEffects);
 
         // start the animation
-        this.startAnimation();
+        const player = this.startAnimation();
         // But make sure that we honor the initial playState, if set.
-        this.updatePlayState(this.props.playState);
+        this.updatePlayState(player, this.props.playState);
     }
 
     render() {

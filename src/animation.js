@@ -22,7 +22,7 @@ class Animation extends Animatable {
      * Start the animation and set the player in the state
      */
     startAnimation() {
-        this.setPlayer(this.node.animate(this.keyframes, this.timing.toJS()));
+        return this.setPlayer(this.node.animate(this.keyframes, this.timing.toJS()));
     }
 
     componentWillReceiveProps( nextProps ) {
@@ -41,7 +41,7 @@ class Animation extends Animatable {
         }
 
         // update play state
-        this.updatePlayState(nextProps);
+        this.updatePlayState(this.state.player, nextProps);
 
         // update time
         if ( nextProps.currentTime !== undefined && this.props.currentTime !== currentTime ) {
@@ -58,9 +58,9 @@ class Animation extends Animatable {
         this.timing = new Map(timing);
 
         // start the animation
-        this.startAnimation();
+        const player = this.startAnimation();
         // But make sure that we honor the initial playState, if set.
-        this.updatePlayState(playState);
+        this.updatePlayState(player, playState);
     }
 
     render() {
