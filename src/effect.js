@@ -38,6 +38,7 @@ class Effect extends Component {
 
     startAnimation() {
         const player = document.timeline.play(this.effect);
+        this.updatePlayState(player, this.props);
         this.setState({ player });
     }
 
@@ -74,7 +75,7 @@ class Effect extends Component {
         }
 
         // update play state
-        this.updatePlayState(nextProps);
+        this.updatePlayState(this.state.player, nextProps);
 
         // update time
         if ( nextProps.currentTime !== undefined && this.props.currentTime !== currentTime ) {
@@ -91,32 +92,34 @@ class Effect extends Component {
         this.startAnimation();
     }
 
-    updatePlayState( props ) {
-        if ( this.state.player ) {
-            let currentState = this.state.player.playState;
-            switch ( props.playState ) {
-                case 'running':
-                    this.state.player.play();
-                    break;
-                case 'paused':
-                    if ( currentState !== 'paused' ) {
-                        this.state.player.pause();
-                    }
-                    break;
-                case 'finished':
-                    if ( currentState !== 'finished' ) {
-                        this.state.player.finish();
-                    }
-                    break;
-                case 'idle':
-                    if ( currentState !== 'idle' ) {
-                        this.state.player.cancel();
-                    }
-                    break;
-                case 'reversed':
-                    this.state.player.reverse();
-                    break;
-            }
+    updatePlayState( player, props ) {
+        if ( !player ) {
+            return;
+        }
+        
+        let currentState = player.playState;
+        switch ( props.playState ) {
+            case 'running':
+                player.play();
+                break;
+            case 'paused':
+                if ( currentState !== 'paused' ) {
+                    player.pause();
+                }
+                break;
+            case 'finished':
+                if ( currentState !== 'finished' ) {
+                    player.finish();
+                }
+                break;
+            case 'idle':
+                if ( currentState !== 'idle' ) {
+                    player.cancel();
+                }
+                break;
+            case 'reversed':
+                player.reverse();
+                break;
         }
     }
 
