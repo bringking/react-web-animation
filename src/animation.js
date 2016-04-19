@@ -26,7 +26,7 @@ class Animation extends Animatable {
     }
 
     componentWillReceiveProps( nextProps ) {
-        const {timing,keyframes, currentTime} = nextProps;
+        const {timing,keyframes} = nextProps;
 
         // create data structures for props
         if ( timing && keyframes ) {
@@ -40,18 +40,11 @@ class Animation extends Animatable {
             }
         }
 
-        // update play state
-        this.updatePlayState(this.state.player, nextProps);
-
-        // update time
-        if ( nextProps.currentTime !== undefined && this.props.currentTime !== currentTime ) {
-            this.updateTime(nextProps);
-        }
-
+        this.updatePlayer(nextProps);
     }
 
     componentDidMount() {
-        const {timing,keyframes,playState} = this.props;
+        const {timing,keyframes} = this.props;
 
         // create data structures for props
         this.keyframes = keyframes;
@@ -60,7 +53,7 @@ class Animation extends Animatable {
         // start the animation
         const player = this.startAnimation();
         // But make sure that we honor the initial playState, if set.
-        this.updatePlayState(player, playState);
+        this.updatePlayer(this.props, player);
     }
 
     render() {
