@@ -9,32 +9,34 @@ export default {
             this.state.player.cancel();
         }
         this.setState({ player });
+
+        return player;
     },
 
-    updatePlayState( props ) {
-        if ( this.state.player ) {
-            let currentState = this.state.player.playState;
-            switch ( props.playState ) {
+    updatePlayState( player, playState ) {
+        if ( player ) {
+            let currentState = player.playState;
+            switch ( playState ) {
                 case 'running':
-                    this.state.player.play();
+                    player.play();
                     break;
                 case 'paused':
                     if ( currentState !== 'paused' ) {
-                        this.state.player.pause();
+                        player.pause();
                     }
                     break;
                 case 'finished':
                     if ( currentState !== 'finished' ) {
-                        this.state.player.finish();
+                        player.finish();
                     }
                     break;
                 case 'idle':
                     if ( currentState !== 'idle' ) {
-                        this.state.player.cancel();
+                        player.cancel();
                     }
                     break;
                 case 'reversed':
-                    this.state.player.reverse();
+                    player.reverse();
                     break;
             }
         }
