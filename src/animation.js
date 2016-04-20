@@ -3,6 +3,7 @@ import {Map,is} from 'immutable';
 import Animatable from './animatable';
 import assign from 'lodash.assign';
 import isEqual from 'lodash.isequal';
+import playable from './mixins/playable';
 
 /**
  * <Animation/> is a simple implementation of <Animatable/> and controls a single
@@ -21,18 +22,11 @@ class Animation extends Animatable {
      * Start the animation and set the player in the state
      */
     startAnimation() {
-        // cancel existing animation
-        if ( this.state.player ) {
-            this.state.player.cancel();
-        }
-
-        // start with the new config
-        const player = this.node.animate(this.keyframes, this.timing.toJS());
-        this.setState({ player });
+        return this.setPlayer(this.node.animate(this.keyframes, this.timing.toJS()));
     }
 
     componentWillReceiveProps( nextProps ) {
-        const {timing,keyframes, currentTime} = nextProps;
+        const {timing,keyframes} = nextProps;
 
         // create data structures for props
         if ( timing && keyframes ) {
@@ -46,52 +40,7 @@ class Animation extends Animatable {
             }
         }
 
-
-        // update play state
-        this.updatePlayState(nextProps);
-
-        // update time
-        if ( nextProps.currentTime !== undefined && this.props.currentTime !== currentTime ) {
-            this.updateTime(nextProps);
-        }
-
-    }
-
-    updatePlayState( props ) {
-        if ( this.state.player ) {
-            let currentState = this.state.player.playState;
-            switch ( props.playState ) {
-                case 'running':
-                    this.state.player.play();
-                    break;
-                case 'paused':
-                    if ( currentState !== 'paused' ) {
-                        this.state.player.pause();
-                    }
-                    break;
-                case 'finished':
-                    if ( currentState !== 'finished' ) {
-                        this.state.player.finish();
-                    }
-                    break;
-                case 'idle':
-                    if ( currentState !== 'idle' ) {
-                        this.state.player.cancel();
-                    }
-                    break;
-                case 'reversed':
-                    this.state.player.reverse();
-                    break;
-            }
-        }
-
-    }
-
-    updateTime( props ) {
-        if ( this.state.player ) {
-            this.state.player.pause();
-            this.state.player.currentTime = props.currentTime;
-        }
+        this.updatePlayer(nextProps);
     }
 
     componentDidMount() {
@@ -102,7 +51,9 @@ class Animation extends Animatable {
         this.timing = new Map(timing);
 
         // start the animation
-        this.startAnimation();
+        const player = this.startAnimation();
+        // But make sure that we honor the initial playState, if set.
+        this.updatePlayer(this.props, player);
     }
 
     render() {
@@ -127,6 +78,8 @@ class Animation extends Animatable {
         return Children.only(this.element);
     }
 }
+
+assign(Animation.prototype, playable);
 
 Animation.propTypes = assign({}, Animatable.propTypes, {
     currentTime: PropTypes.number,
