@@ -33,7 +33,7 @@
     "build": "npm run lint && npm run test && npm run build:lib && npm run build:umd && npm run build:umd:min"
   },
   "devDependencies": {
-    "babel-cli": "^6.7.5",
+    "babel-cli": "^6.8.0",
     "babel-core": "^6.7.6",
     "babel-eslint": "^6.0.2",
     "babel-loader": "^6.2.3",
