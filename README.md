@@ -47,6 +47,10 @@ react-web-animation has a runtime dependency on the `next` version [Web Animatio
 The easiest way to get this is to grab it from [cdnjs](https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.1.4/web-animations-next.min.js)
 and include it in your application.
 
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.1.4/web-animations-next.min.js"></script>
+```
+
 ## Features
 * Animate Single Elements with a `<Animation>` and control play state (play, pause, stop, reverse)
 * Animate Multiple animations in parallel with a `<AnimationGroup>`, controlling them with one timeline
