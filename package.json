@@ -45,7 +45,7 @@
     "enzyme": "^2.0.0",
     "eslint": "2.10.2",
     "eslint-plugin-mocha": "2.2.0",
-    "mocha": "2.5.2",
+    "mocha": "2.5.3",
     "react": ">=15.1.0",
     "react-addons-test-utils": ">=15.1.0",
     "react-dom": ">=15.1.0",
