@@ -43,7 +43,7 @@
     "cross-env": "^1.0.7",
     "dirty-chai": "^1.2.2",
     "enzyme": "^2.0.0",
-    "eslint": "2.11.0",
+    "eslint": "2.11.1",
     "eslint-plugin-mocha": "2.2.0",
     "mocha": "2.5.3",
     "react": ">=15.1.0",
