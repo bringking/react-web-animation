@@ -1,8 +1,7 @@
 language: node_js
 node_js:
   - "stable"
-  - "4.1"
-  - "4.0"
+  - "4.4.5"
 install:
   - npm install react
   - npm install react-dom
