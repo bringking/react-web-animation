@@ -44,11 +44,11 @@ npm install react-web-animation
 ```
 
 react-web-animation has a runtime dependency on the `next` version [Web Animations API](https://github.com/web-animations/web-animations-js) polyfill. 
-The easiest way to get this is to grab it from [cdnjs](https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.1.4/web-animations-next.min.js)
+The easiest way to get this is to grab it from [cdnjs](https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.1/web-animations-next.min.js)
 and include it in your application.
 
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.1.4/web-animations-next.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.1/web-animations-next.min.js"></script>
 ```
 
 ## Features
