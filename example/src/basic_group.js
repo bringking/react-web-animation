@@ -31,6 +31,26 @@ export default class BasicGroup extends Component {
         };
     }
 
+    onPlay(player) {
+        console.log('Basic Group example: Play event');
+    }
+
+    onFinish(animationEvent) {
+        console.log('Basic Group example: Finish event');
+    }
+
+    onCancel(animationEvent) {
+        console.log('Basic Group example: Cancel event');
+    }
+
+    onPause(player) {
+        console.log('Basic Group example: Pause event');
+    }
+
+    onReverse(player) {
+        console.log('Basic Group example: Reverse event');
+    }
+
     render() {
         return <div>
             <label>Current Time: </label>
@@ -47,7 +67,8 @@ export default class BasicGroup extends Component {
             <a href='https://github.com/RinconStrategies/react-web-animation/blob/master/example/src/basic_group.js'>View Source</a>
             <div
                 style={{display: 'flex',flexDirection: 'column', pointerEvents: 'none',fontWeight:'bold', fontSize: '4rem', alignItems: 'center',justifyContent: 'center',position: 'absolute',top: 0,left: 0,width: '100%',height: '100%'}}>
-                <AnimationGroup playState={this.state.playState} currentTime={this.state.currentTime}>
+                <AnimationGroup onReverse={this.onReverse} onPlay={this.onPlay} onFinish={this.onFinish} onCancel={this.onCancel}
+                                onPause={this.onPause} playState={this.state.playState} currentTime={this.state.currentTime}>
                     <Animatable id="1" keyframes={this.getKeyFrames()} timing={this.getTiming(2000)}>
                         <div>
                             Web Animations API Rocks

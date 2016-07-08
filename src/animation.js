@@ -82,6 +82,11 @@ class Animation extends Animatable {
 assign(Animation.prototype, playable);
 
 Animation.propTypes = assign({}, Animatable.propTypes, {
+    onCancel: PropTypes.func,
+    onFinish: PropTypes.func,
+    onPause: PropTypes.func,
+    onPlay: PropTypes.func,
+    onReverse: PropTypes.func,
     currentTime: PropTypes.number,
     playState: PropTypes.oneOf(['running', 'paused', 'finished', 'idle', 'reversed'])
 });

@@ -6,16 +6,35 @@ The `<Animation/>` Component wraps another element and allows you to animate it.
 element.
 
 ### PropTypes
-- `children`: Animation requires a child element.
-- `getRef`: react-web-animation relies on [refs](https://facebook.github.io/react/docs/more-about-refs.html) to access the 
+- `children`:*`PropTypes.element.isRequired`* Animation requires a child element.
+- `getRef`:*`PropTypes.func`*   react-web-animation relies on [refs](https://facebook.github.io/react/docs/more-about-refs.html) to access the 
 underlying elements. If you need to access the ref of a wrapped component, use this prop to pass a function in order to 
 store the ref in your containing class.
-- `keyframes`: A set of keyframes that represent the values to animate and their offsets. See the [Spec](https://w3c.github.io/web-animations/#dom-keyframeeffectreadonly-getframes) for details
-- `timing`: An object representing the `AnimationEffectTimingProperties` from the [Spec](https://w3c.github.io/web-animations/#the-animationeffecttimingproperties-dictionary)
-- `currentTime`: Set/Get the current play time of the animation in the form of. The `currentTime` should be set to less than
+- `keyframes`:*`PropTypes.arrayOf(Object)`* A set of keyframes that represent the values to animate and their offsets. See the [Spec](https://w3c.github.io/web-animations/#dom-keyframeeffectreadonly-getframes) for details
+- `timing`:*`PropTypes.shape({
+                     delay: PropTypes.number,
+                     endDelay: PropTypes.number,
+                     fill: PropTypes.oneOf(['none', 'forwards', 'backwards', 'both', 'auto']),
+                     iterationStart: PropTypes.number,
+                     iterations: PropTypes.number,
+                     duration: PropTypes.oneOfType([
+                         PropTypes.string,
+                         PropTypes.number
+                     ]),
+                     direction: PropTypes.oneOf(['normal', 'reverse', 'alternate', 'alternate-reverse']),
+                     easing: PropTypes.string
+                 }).isRequired`* An object representing the `AnimationEffectTimingProperties` from the [Spec](https://w3c.github.io/web-animations/#the-animationeffecttimingproperties-dictionary)
+- `currentTime`:*`PropTypes.number`* Set/Get the current play time of the animation in the form of. The `currentTime` should be set to less than
 the `timelineLength` of the animation which is equal to `timing.delay + timing.duration * timing.iterations`
-- `playState`: Set/Get the current state of the player. Accepts values from the [Spec](https://w3c.github.io/web-animations/#play-states), with
+- `playState`:*`PropTypes.oneOf(['running', 'paused', 'finished', 'idle', 'reversed'])`* Set/Get the current state of the player. Accepts values from the [Spec](https://w3c.github.io/web-animations/#play-states), with
 the exception of `pending`, which didn't make sense to provide a setter for.
+- `onCancel`: *`PropTypes.func`* [Native event for](http://w3c.github.io/web-animations/#animation-events-section) the WebAnimations API `oncancel` event. Fires when the animation enters
+the `idle` state from another state
+- `onFinish`: *`PropTypes.func`* [Native event for](http://w3c.github.io/web-animations/#animation-events-section) the WebAnimations API `onfinish` event. Fires when the animation
+enters the `finished` state.
+- `onPause`: *`PropTypes.func`* react-web-animation Event for transitioning to the `paused` from a different state.
+- `onPlay`: *`PropTypes.func`* react-web-animation Event for transitioning to the `running` from a different state.
+- `onReverse`: *`PropTypes.func`* react-web-animation Event for transitioning to the `reversed` state from a different state.
 
 ### Passed Props
 
@@ -92,17 +111,39 @@ None
  `player` to control the timeline
 
 ### PropTypes
-- `component`: The element or string representing an element to render as the wrapping element. Defaults to `div`.
-- `children`: `<AnimationGroup>` requires a child elements of type `<Animatable/>`
-- `getRef`: react-web-animation relies on [refs](https://facebook.github.io/react/docs/more-about-refs.html) to access the 
+- `component`:*`PropTypes.oneOfType([
+                        PropTypes.string,
+                        PropTypes.element
+                    ])`* The element or string representing an element to render as the wrapping element. Defaults to `div`.
+- `children`:*`PropTypes.element.isRequired`* `<AnimationGroup>` requires a child elements of type `<Animatable/>`
+- `getRef`:*`PropTypes.func`* react-web-animation relies on [refs](https://facebook.github.io/react/docs/more-about-refs.html) to access the 
 underlying elements. If you need to access the ref of a wrapped component, use this prop to pass a function in order to 
 store the ref in your containing class.
-- `keyframes`: A set of keyframes that represent the values to animate and their offsets. See the [Spec](https://w3c.github.io/web-animations/#dom-keyframeeffectreadonly-getframes) for details
-- `timing`: An object representing the `AnimationEffectTimingProperties` from the [Spec](https://w3c.github.io/web-animations/#the-animationeffecttimingproperties-dictionary)
-- `currentTime`: Set/Get the current play time of the animation in the form of. The `currentTime` should be set to less than
+- `keyframes`:*`PropTypes.arrayOf(Object)`* A set of keyframes that represent the values to animate and their offsets. See the [Spec](https://w3c.github.io/web-animations/#dom-keyframeeffectreadonly-getframes) for details
+- `timing`:*`PropTypes.shape({
+                                delay: PropTypes.number,
+                                endDelay: PropTypes.number,
+                                fill: PropTypes.oneOf(['none', 'forwards', 'backwards', 'both', 'auto']),
+                                iterationStart: PropTypes.number,
+                                iterations: PropTypes.number,
+                                duration: PropTypes.oneOfType([
+                                    PropTypes.string,
+                                    PropTypes.number
+                                ]),
+                                direction: PropTypes.oneOf(['normal', 'reverse', 'alternate', 'alternate-reverse']),
+                                easing: PropTypes.string
+                            }).isRequired`* An object representing the `AnimationEffectTimingProperties` from the [Spec](https://w3c.github.io/web-animations/#the-animationeffecttimingproperties-dictionary)
+- `currentTime`:*`PropTypes.number`* Set/Get the current play time of the animation in the form of. The `currentTime` should be set to less than
 the `timelineLength` of the animation which is equal to `longestAnimatable.timing.delay + longestAnimatable.timing.duration * longestAnimatable.timing.iterations`
-- `playState`: Set/Get the current state of the player. Accepts values from the [Spec](https://w3c.github.io/web-animations/#play-states), with
+- `playState`:*`PropTypes.oneOf(['running', 'paused', 'finished', 'idle', 'reversed'])`* Set/Get the current state of the player. Accepts values from the [Spec](https://w3c.github.io/web-animations/#play-states), with
 the exception of `pending`, which didn't make sense to provide a setter for.
+- `onCancel`: *`PropTypes.func`* [Native event for](http://w3c.github.io/web-animations/#animation-events-section) the WebAnimations API `oncancel` event. Fires when the animation enters
+the `idle` state from another state
+- `onFinish`: *`PropTypes.func`* [Native event for](http://w3c.github.io/web-animations/#animation-events-section) the WebAnimations API `onfinish` event. Fires when the animation
+enters the `finished` state.
+- `onPause`: *`PropTypes.func`* react-web-animation Event for transitioning to the `paused` from a different state.
+- `onPlay`: *`PropTypes.func`* react-web-animation Event for transitioning to the `running` from a different state.
+- `onReverse`: *`PropTypes.func`* react-web-animation Event for transitioning to the `reversed` state from a different state.
 
 ### Passed Props
 
@@ -189,17 +230,39 @@ export default class BasicGroup extends Component {
  `player` to control the timeline
 
 ### PropTypes
-- `component`: The element or string representing an element to render as the wrapping element. Defaults to `div`.
-- `children`: `<AnimationGroup>` requires a child elements of type `<Animatable/>`
-- `getRef`: react-web-animation relies on [refs](https://facebook.github.io/react/docs/more-about-refs.html) to access the 
+- `component`:*`PropTypes.oneOfType([
+                        PropTypes.string,
+                        PropTypes.element
+                    ])`* The element or string representing an element to render as the wrapping element. Defaults to `div`.
+- `children`:*`PropTypes.element.isRequired`* `<AnimationSequence>` requires a child elements of type `<Animatable/>`
+- `getRef`:*`PropTypes.func`* react-web-animation relies on [refs](https://facebook.github.io/react/docs/more-about-refs.html) to access the 
 underlying elements. If you need to access the ref of a wrapped component, use this prop to pass a function in order to 
 store the ref in your containing class.
-- `keyframes`: A set of keyframes that represent the values to animate and their offsets. See the [Spec](https://w3c.github.io/web-animations/#dom-keyframeeffectreadonly-getframes) for details
-- `timing`: An object representing the `AnimationEffectTimingProperties` from the [Spec](https://w3c.github.io/web-animations/#the-animationeffecttimingproperties-dictionary)
-- `currentTime`: Set/Get the current play time of the animation in the form of. The `currentTime` should be set to less than
-the `timelineLength` of the animation which is equal to `(animatable.timing.delay + animatable.timing.duration * animatable.timing.iterations) + animatiable...N `
-- `playState`: Set/Get the current state of the player. Accepts values from the [Spec](https://w3c.github.io/web-animations/#play-states), with
+- `keyframes`:*`PropTypes.arrayOf(Object)`* A set of keyframes that represent the values to animate and their offsets. See the [Spec](https://w3c.github.io/web-animations/#dom-keyframeeffectreadonly-getframes) for details
+- `timing`:*`PropTypes.shape({
+                                delay: PropTypes.number,
+                                endDelay: PropTypes.number,
+                                fill: PropTypes.oneOf(['none', 'forwards', 'backwards', 'both', 'auto']),
+                                iterationStart: PropTypes.number,
+                                iterations: PropTypes.number,
+                                duration: PropTypes.oneOfType([
+                                    PropTypes.string,
+                                    PropTypes.number
+                                ]),
+                                direction: PropTypes.oneOf(['normal', 'reverse', 'alternate', 'alternate-reverse']),
+                                easing: PropTypes.string
+                            }).isRequired`* An object representing the `AnimationEffectTimingProperties` from the [Spec](https://w3c.github.io/web-animations/#the-animationeffecttimingproperties-dictionary)
+- `currentTime`:*`PropTypes.number`* Set/Get the current play time of the animation in the form of. The `currentTime` should be set to less than
+the `timelineLength` of the animation which is equal to `longestAnimatable.timing.delay + longestAnimatable.timing.duration * longestAnimatable.timing.iterations`
+- `playState`:*`PropTypes.oneOf(['running', 'paused', 'finished', 'idle', 'reversed'])`* Set/Get the current state of the player. Accepts values from the [Spec](https://w3c.github.io/web-animations/#play-states), with
 the exception of `pending`, which didn't make sense to provide a setter for.
+- `onCancel`: *`PropTypes.func`* [Native event for](http://w3c.github.io/web-animations/#animation-events-section) the WebAnimations API `oncancel` event. Fires when the animation enters
+the `idle` state from another state
+- `onFinish`: *`PropTypes.func`* [Native event for](http://w3c.github.io/web-animations/#animation-events-section) the WebAnimations API `onfinish` event. Fires when the animation
+enters the `finished` state.
+- `onPause`: *`PropTypes.func`* react-web-animation Event for transitioning to the `paused` from a different state.
+- `onPlay`: *`PropTypes.func`* react-web-animation Event for transitioning to the `running` from a different state.
+- `onReverse`: *`PropTypes.func`* react-web-animation Event for transitioning to the `reversed` state from a different state.
 
 ### Passed Props
 
