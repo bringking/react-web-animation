@@ -2,13 +2,57 @@
  * A mixin for components that manage an animation Player.
  */
 export default {
+    componentWillUnmount() {
+        const { player } = this.state;
+        const { detachHandlersFromPlayer } = this;
+        detachHandlersFromPlayer(player);
+    },
+    attachHandlersToPlayer(player) {
+        if (this.props.onFinish) {
+            player.onfinish = this.props.onFinish;
+        }
 
+        if (this.props.onCancel) {
+            player.oncancel = this.props.onCancel;
+        }
+
+    },
+    detachHandlersFromPlayer(player) {
+        player.onfinish = null;
+        player.oncancel = null;
+    },
+    notifyHandlers(event) {
+        const { player } = this.state;
+        if (!player) {
+            return;
+        }
+        switch (event) {
+            case 'running':
+                if (this.props.onPlay) {
+                    this.props.onPlay(player);
+                }
+                break;
+            case 'paused':
+                if (this.props.onPause) {
+                    this.props.onPause(player);
+                }
+                break;
+            case 'reversed':
+                if (this.props.onReverse) {
+                    this.props.onReverse(player);
+                }
+                break;
+        }
+    },
     setPlayer(player) {
         // cancel existing animation
         if (this.state.player) {
             this.state.player.cancel();
         }
         this.setState({ player });
+
+        // attach native handlers
+        this.attachHandlersToPlayer(player);
 
         return player;
     },
@@ -18,10 +62,23 @@ export default {
      */
     updatePlayer(props, player = this.state.player) {
 
-        this.updateTime(props, player);
-
+        let shouldUpdatePlayerState;
+        // if the play state has been changed from the old to the new, or different
+        // from the current player state
         if (props.playState !== this.props.playState || props.playState !== player.playState) {
+            shouldUpdatePlayerState = true;
+        }
+        // don't do anything if the state is staying at reversed
+        if (props.playState === 'reversed' && this.props.playState === 'reversed') {
+            shouldUpdatePlayerState = false;
+        }
+
+        if (shouldUpdatePlayerState) {
             this.updatePlayState(props, player);
+        }
+
+        if (this.props.currentTime !== props.currentTime) {
+            this.updateTime(props, player);
         }
 
     },
@@ -48,6 +105,9 @@ export default {
                 player.reverse();
                 break;
         }
+
+        // notify any handlers of the state change
+        this.notifyHandlers(playState);
     },
 
     updateTime({ currentTime }, player = this.state.player) {
@@ -55,16 +115,7 @@ export default {
             return;
         }
 
-        // store the current state
-        let oldState = player.playState;
-
-        // updating the time causes the player to play again, which is un-expected
-        // so we need to reset the state back to it's current state after changing the time
-        player.pause();
         player.currentTime = currentTime;
-
-        // restore the old state
-        this.updatePlayState({ playState: oldState });
 
     }
 

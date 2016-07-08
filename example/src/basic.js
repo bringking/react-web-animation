@@ -1,6 +1,5 @@
-import React,{ Component } from 'react';
-import {Animation, AnimationGroup, AnimationSequence, Animatable} from '../../lib';
-
+import React, { Component } from 'react';
+import { Animation, AnimationGroup, AnimationSequence, Animatable } from '../../lib';
 
 export default class Basic extends Component {
     constructor() {
@@ -19,7 +18,7 @@ export default class Basic extends Component {
         ];
     }
 
-    getTiming( duration ) {
+    getTiming(duration) {
         return {
             duration,
             easing: 'ease-in-out',
@@ -28,6 +27,26 @@ export default class Basic extends Component {
             direction: 'alternate',
             fill: 'forwards'
         };
+    }
+
+    onPlay(player) {
+        console.log('Basic example: Play event');
+    }
+
+    onFinish(animationEvent) {
+        console.log('Basic example: Finish event');
+    }
+
+    onCancel(animationEvent) {
+        console.log('Basic example: Cancel event');
+    }
+
+    onPause(player) {
+        console.log('Basic example: Pause event');
+    }
+
+    onReverse(player) {
+        console.log('Basic example: Reverse event');
     }
 
     render() {
@@ -44,8 +63,11 @@ export default class Basic extends Component {
                 <button onClick={()=>{this.setState({playState: 'reversed'});}}>Reverse ↺</button>
                 <button onClick={()=>{this.setState({playState: 'finished'});}}>Finish ⇥</button>
             </div>
-            <a href='https://github.com/RinconStrategies/react-web-animation/blob/master/example/src/basic.js'>View Source</a>
-            <Animation playState={this.state.playState} keyframes={this.getKeyFrames()}
+            <a href='https://github.com/RinconStrategies/react-web-animation/blob/master/example/src/basic.js'>View
+                Source</a>
+            <Animation onReverse={this.onReverse} onPlay={this.onPlay} onFinish={this.onFinish} onCancel={this.onCancel}
+                       onPause={this.onPause}
+                       playState={this.state.playState} keyframes={this.getKeyFrames()}
                        timing={this.getTiming(2500)} currentTime={this.state.currentTime}>
                 <div
                     style={{display: 'flex', pointerEvents: 'none',fontWeight:'bold', fontSize: '4rem', alignItems: 'center',justifyContent: 'center',position: 'absolute',top: 0,left: 0,width: '100%',height: '100%'}}>

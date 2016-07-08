@@ -120,6 +120,11 @@ Effect.defaultProps = {
 };
 
 Effect.propTypes = {
+    onCancel: PropTypes.func,
+    onFinish: PropTypes.func,
+    onPause: PropTypes.func,
+    onPlay: PropTypes.func,
+    onReverse: PropTypes.func,
     getRef: PropTypes.func,
     currentTime: PropTypes.number,
     playState: PropTypes.oneOf(['running', 'paused', 'finished', 'idle', 'reversed']),
