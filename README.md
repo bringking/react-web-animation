@@ -8,7 +8,7 @@ in a declarative way.
 </p>
 
 
-[![build status](https://travis-ci.org/RinconStrategies/react-web-animation.svg?branch=master)](https://travis-ci.org/RinconStrategies/react-web-animation)
+[![build status](https://travis-ci.org/bringking/react-web-animation.svg?branch=master)](https://travis-ci.org/bringking/react-web-animation)
 [![npm version](https://img.shields.io/npm/v/react-web-animation.svg?style=flat-square)](https://www.npmjs.com/package/react-web-animation)
 [![npm downloads](https://img.shields.io/npm/dm/react-web-animation.svg?style=flat-square)](https://www.npmjs.com/package/react-web-animation)
 
