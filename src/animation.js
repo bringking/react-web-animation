@@ -1,5 +1,5 @@
-import React, {Children,PropTypes} from 'react';
-import {Map,is} from 'immutable';
+import React, { Children, PropTypes } from 'react';
+import { Map, is } from 'immutable';
 import Animatable from './animatable';
 import assign from 'lodash.assign';
 import isEqual from 'lodash.isequal';
@@ -25,14 +25,14 @@ class Animation extends Animatable {
         return this.setPlayer(this.node.animate(this.keyframes, this.timing.toJS()));
     }
 
-    componentWillReceiveProps( nextProps ) {
-        const {timing,keyframes} = nextProps;
+    componentWillReceiveProps(nextProps) {
+        const { timing, keyframes } = nextProps;
 
         // create data structures for props
-        if ( timing && keyframes ) {
+        if (timing && keyframes) {
             const newTiming = new Map(timing);
 
-            if ( !isEqual(keyframes, this.keyframes) || !is(newTiming, this.timing) ) {
+            if (!isEqual(keyframes, this.keyframes) || !is(newTiming, this.timing)) {
                 this.timing = newTiming;
                 this.keyframes = keyframes;
                 // start the new animation with the new config
@@ -44,7 +44,7 @@ class Animation extends Animatable {
     }
 
     componentDidMount() {
-        const {timing,keyframes} = this.props;
+        const { timing, keyframes } = this.props;
 
         // create data structures for props
         this.keyframes = keyframes;
@@ -57,22 +57,16 @@ class Animation extends Animatable {
     }
 
     render() {
-        const {children,getRef,timing,playState} = this.props;
-        const {player} = this.state;
+        const { children, getRef } = this.props;
 
         this.element = React.cloneElement(children, {
-            ref: ( node ) => {
+            ref: (node) => {
                 this.node = node;
-                if ( getRef ) {
+                if (getRef) {
                     getRef(node);
                 }
                 return node;
-            },
-            player,
-            playState,
-            timelineLength: isFinite(timing.iterations)
-                ? timing.delay + timing.duration * timing.iterations
-                : 'Infinity'
+            }
         });
 
         return Children.only(this.element);

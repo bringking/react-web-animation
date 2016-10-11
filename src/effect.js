@@ -1,7 +1,7 @@
 /* eslint no-unused-vars:0*/
-import React, {Component, Children, PropTypes} from 'react';
+import React, { Component, Children, PropTypes } from 'react';
 import Animatable from './animatable';
-import {Map,is} from 'immutable';
+import { Map, is } from 'immutable';
 import isEqual from 'lodash.isequal';
 import assign from 'lodash.assign';
 import playable from './mixins/playable';
@@ -11,7 +11,7 @@ import playable from './mixins/playable';
  * components. A sub-type must be provided.
  */
 class Effect extends Component {
-    constructor( type ) {
+    constructor(type) {
         super();
 
         this.state = {
@@ -41,33 +41,33 @@ class Effect extends Component {
         return this.setPlayer(document.timeline.play(this.effect));
     }
 
-    getKeyframeEffectsFromChildren( props ) {
-        const {children} = props;
-        return Children.map(children, ( c, idx )=> {
+    getKeyframeEffectsFromChildren(props) {
+        const { children } = props;
+        return Children.map(children, (c, idx)=> {
             return new KeyframeEffect(this.nodes[idx], c.props.keyframes, c.props.timing);
         });
     }
 
-    buildFrameCache( props ) {
-        const {children} = props;
+    buildFrameCache(props) {
+        const { children } = props;
         const cache = {};
-        return Children.forEach(children, ( c, idx )=> {
+        return Children.forEach(children, (c, idx)=> {
             cache[idx] = { frames: c.props.keyframes, timing: c.props.timing };
         });
     }
 
-    getEffectFromKeyframes( keyframeEffects ) {
+    getEffectFromKeyframes(keyframeEffects) {
         // create the group
         let type = window[this.type] || window['GroupEffect'];
         return new type(keyframeEffects);
     }
 
-    componentWillReceiveProps( nextProps ) {
+    componentWillReceiveProps(nextProps) {
         let nextKeyframes = this.getKeyframeEffectsFromChildren(nextProps);
         let newFrameCache = new Map(this.buildFrameCache(nextProps));
-        const {currentTime} = nextProps;
+        const { currentTime } = nextProps;
 
-        if ( !is(newFrameCache, this.frameCache) ) {
+        if (!is(newFrameCache, this.frameCache)) {
             this.keyframeEffects = nextKeyframes;
             this.effect = this.getEffectFromKeyframes(nextKeyframes);
             this.startAnimation();
@@ -88,13 +88,13 @@ class Effect extends Component {
     }
 
     render() {
-        const {children,component, getRef} = this.props;
-        const {player} = this.state;
+        const { children, component, getRef } = this.props;
+        const { player } = this.state;
 
-        const childElements = Children.map(children, ( c, idx )=> {
+        const childElements = Children.map(children, (c, idx)=> {
             return React.cloneElement(c, {
-                ref: ( el ) => {
-                    if ( el ) {
+                ref: (el) => {
+                    if (el) {
                         this.nodes[idx] = el.node;
                         return el.node;
                     }
@@ -102,15 +102,15 @@ class Effect extends Component {
             });
         });
 
-        return React.createElement(component, assign({}, this.props, {
-            ref: ( node ) => {
+        return React.createElement(component, {
+            ref: (node) => {
                 this.wrapper = node;
-                if ( getRef ) {
+                if (getRef) {
                     getRef(node);
                 }
                 return node;
             }
-        }), childElements);
+        }, childElements);
     }
 }
 assign(Effect.prototype, playable);
@@ -132,23 +132,23 @@ Effect.propTypes = {
         PropTypes.string,
         PropTypes.element
     ]),
-    children: ( props, propName, componentName ) => {
+    children: (props, propName, componentName) => {
         const prop = props[propName];
 
         let typeError;
-        if ( prop.length ) {
+        if (prop.length) {
             typeError = prop.some(e => {
                 let instance = new e.type();
                 return !(instance instanceof Animatable);
             });
-        } else if ( prop.type ) {
+        } else if (prop.type) {
             let instance = new prop.type();
             typeError = !(instance instanceof Animatable);
         } else {
             typeError = true;
         }
 
-        if ( typeError ) {
+        if (typeError) {
             return new Error(
                 '`' + componentName + '` ' +
                 'should have children of type <Animatable/>'
