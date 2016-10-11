@@ -63,11 +63,15 @@ export default {
     updatePlayer(props, player = this.state.player) {
 
         let shouldUpdatePlayerState;
-        // if the play state has been changed from the old to the new, or different
-        // from the current player state
-        if (props.playState !== this.props.playState || props.playState !== player.playState) {
+        // if the play state has been changed from the old to the new, or
+        if (props.playState !== this.props.playState) {
             shouldUpdatePlayerState = true;
         }
+        // different from the current player state
+        if (player && player.playState && props.playState !== player.playState) {
+            shouldUpdatePlayerState = true;
+        }
+
         // don't do anything if the state is staying at reversed
         if (props.playState === 'reversed' && this.props.playState === 'reversed') {
             shouldUpdatePlayerState = false;
