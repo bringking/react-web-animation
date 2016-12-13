@@ -54,10 +54,10 @@
   },
   "peerDependencies": {
     "react": ">=0.14.0 <16.0.0",
-    "react-dom": ">=0.14.0 <16.0.0",
-    "immutable": "^3.7.6"
+    "react-dom": ">=0.14.0 <16.0.0"
   },
   "dependencies": {
+    "immutable": "^3.7.6",
     "lodash.assign": "^4.0.3",
     "lodash.groupby": "^4.2.0",
     "lodash.isequal": "^4.1.0",
