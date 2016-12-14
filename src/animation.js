@@ -1,5 +1,4 @@
 import React, { Children, PropTypes } from 'react';
-import { Map, is } from 'immutable';
 import Animatable from './animatable';
 import assign from 'lodash.assign';
 import isEqual from 'lodash.isequal';
@@ -22,7 +21,7 @@ class Animation extends Animatable {
      * Start the animation and set the player in the state
      */
     startAnimation() {
-        return this.setPlayer(this.node.animate(this.keyframes, this.timing.toJS()));
+        return this.setPlayer(this.node.animate(this.keyframes, this.timing));
     }
 
     componentWillReceiveProps(nextProps) {
@@ -30,9 +29,9 @@ class Animation extends Animatable {
 
         // create data structures for props
         if (timing && keyframes) {
-            const newTiming = new Map(timing);
+            const newTiming = Object.assign({}, timing);
 
-            if (!isEqual(keyframes, this.keyframes) || !is(newTiming, this.timing)) {
+            if (!isEqual(keyframes, this.keyframes) || !isEqual(newTiming, this.timing)) {
                 this.timing = newTiming;
                 this.keyframes = keyframes;
                 // start the new animation with the new config
@@ -48,7 +47,7 @@ class Animation extends Animatable {
 
         // create data structures for props
         this.keyframes = keyframes;
-        this.timing = new Map(timing);
+        this.timing = Object.assign({}, timing);
 
         // start the animation
         const player = this.startAnimation();
