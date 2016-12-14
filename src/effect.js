@@ -1,7 +1,6 @@
 /* eslint no-unused-vars:0*/
 import React, { Component, Children, PropTypes } from 'react';
 import Animatable from './animatable';
-import { Map, is } from 'immutable';
 import isEqual from 'lodash.isequal';
 import assign from 'lodash.assign';
 import playable from './mixins/playable';
@@ -64,10 +63,10 @@ class Effect extends Component {
 
     componentWillReceiveProps(nextProps) {
         let nextKeyframes = this.getKeyframeEffectsFromChildren(nextProps);
-        let newFrameCache = new Map(this.buildFrameCache(nextProps));
+        let newFrameCache = Object.assign({}, this.buildFrameCache(nextProps));
         const { currentTime } = nextProps;
 
-        if (!is(newFrameCache, this.frameCache)) {
+        if (!isEqual(newFrameCache, this.frameCache)) {
             this.keyframeEffects = nextKeyframes;
             this.effect = this.getEffectFromKeyframes(nextKeyframes);
             this.startAnimation();
@@ -77,7 +76,7 @@ class Effect extends Component {
     }
 
     componentDidMount() {
-        this.frameCache = new Map(this.buildFrameCache(this.props));
+        this.frameCache = Object.assign({}, this.buildFrameCache(this.props));
         this.keyframeEffects = this.getKeyframeEffectsFromChildren(this.props);
         this.effect = this.getEffectFromKeyframes(this.keyframeEffects);
 
