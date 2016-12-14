@@ -36,7 +36,6 @@ react-web-animation requires the following peer dependencies to be installed
 ```bash
 npm install react
 npm install react-dom
-npm install immutable
 ```
 
 ```bash
