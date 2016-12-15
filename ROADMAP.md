@@ -4,7 +4,7 @@
 
 Below is a set of features we are aware of and would like to implement soon
 
-- [ ] Remove Immutable dependency, a shallow comparison will work to compare the timing config
+- [x] Remove Immutable dependency, a shallow comparison will work to compare the timing config
 - [x] Add start, finish and cancel event handlers as Props for Animation and AnimationGroup/AnimationSequence
 - [ ] Add Prop for setting the current play speed
 - [ ] Allow nesting of AnimationGroups and AnimationSequences
