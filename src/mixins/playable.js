@@ -7,15 +7,9 @@ export default {
         const { detachHandlersFromPlayer } = this;
         detachHandlersFromPlayer(player);
     },
-    attachHandlersToPlayer(player) {
-        if (this.props.onFinish) {
-            player.onfinish = this.props.onFinish;
-        }
-
-        if (this.props.onCancel) {
-            player.oncancel = this.props.onCancel;
-        }
-
+    attachHandlersToPlayer(player, props) {
+        player.onfinish = props.onFinish;
+        player.oncancel = props.onCancel;
     },
     detachHandlersFromPlayer(player) {
         player.onfinish = null;
@@ -44,7 +38,7 @@ export default {
                 break;
         }
     },
-    setPlayer(player) {
+    setPlayer(player, props) {
         // cancel existing animation
         if (this.state.player) {
             this.state.player.cancel();
@@ -52,7 +46,7 @@ export default {
         this.setState({ player });
 
         // attach native handlers
-        this.attachHandlersToPlayer(player);
+        this.attachHandlersToPlayer(player, props || this.props);
 
         return player;
     },

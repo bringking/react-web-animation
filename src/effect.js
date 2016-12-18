@@ -36,8 +36,8 @@ class Effect extends Component {
 
     }
 
-    startAnimation() {
-        return this.setPlayer(document.timeline.play(this.effect));
+    startAnimation(props) {
+        return this.setPlayer(document.timeline.play(this.effect), props);
     }
 
     getKeyframeEffectsFromChildren(props) {
@@ -69,7 +69,7 @@ class Effect extends Component {
         if (!isEqual(newFrameCache, this.frameCache)) {
             this.keyframeEffects = nextKeyframes;
             this.effect = this.getEffectFromKeyframes(nextKeyframes);
-            this.startAnimation();
+            this.startAnimation(nextProps);
         }
 
         this.updatePlayer(nextProps);

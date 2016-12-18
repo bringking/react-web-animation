@@ -20,8 +20,8 @@ class Animation extends Animatable {
     /**
      * Start the animation and set the player in the state
      */
-    startAnimation() {
-        return this.setPlayer(this.node.animate(this.keyframes, this.timing));
+    startAnimation(props) {
+        return this.setPlayer(this.node.animate(this.keyframes, this.timing), props);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -35,7 +35,7 @@ class Animation extends Animatable {
                 this.timing = newTiming;
                 this.keyframes = keyframes;
                 // start the new animation with the new config
-                this.startAnimation();
+                this.startAnimation(nextProps);
             }
         }
 
