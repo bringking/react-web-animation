@@ -1,5 +1,7 @@
 # react-web-animation
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bringking/react-web-animation.svg)](https://greenkeeper.io/)
+
 react-web-animation is a set of React components that expose the Web Animations API
 in a declarative way.
 
