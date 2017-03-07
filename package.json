@@ -57,7 +57,7 @@
     "react-dom": ">=0.14.0 <16.0.0"
   },
   "dependencies": {
-    "lodash.assign": "^4.0.3",
+    "lodash.assign": "^4.0.9",
     "lodash.groupby": "^4.2.0",
     "lodash.isequal": "^4.1.0",
     "shortid": "^2.2.4"
