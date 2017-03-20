@@ -1,8 +1,9 @@
 import React, { Children, PropTypes } from 'react';
 import Animatable from './animatable';
-import assign from 'lodash.assign';
-import isEqual from 'lodash.isequal';
 import playable from './mixins/playable';
+
+const _assign = require('lodash/assign');
+const _isEqual = require('lodash/isEqual');
 
 /**
  * <Animation/> is a simple implementation of <Animatable/> and controls a single
@@ -31,7 +32,7 @@ class Animation extends Animatable {
         if (timing && keyframes) {
             const newTiming = Object.assign({}, timing);
 
-            if (!isEqual(keyframes, this.keyframes) || !isEqual(newTiming, this.timing)) {
+            if (!_isEqual(keyframes, this.keyframes) || !_isEqual(newTiming, this.timing)) {
                 this.timing = newTiming;
                 this.keyframes = keyframes;
                 // start the new animation with the new config
@@ -72,9 +73,9 @@ class Animation extends Animatable {
     }
 }
 
-assign(Animation.prototype, playable);
+_assign(Animation.prototype, playable);
 
-Animation.propTypes = assign({}, Animatable.propTypes, {
+Animation.propTypes = _assign({}, Animatable.propTypes, {
     onCancel: PropTypes.func,
     onFinish: PropTypes.func,
     onPause: PropTypes.func,
