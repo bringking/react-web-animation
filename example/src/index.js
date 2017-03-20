@@ -5,6 +5,7 @@ import { Router, Route, browserHistory } from 'react-router';
 // import examples
 import App from './App';
 import Basic from './basic';
+import WithInnerHtml from './with_inner_html';
 import BasicGroup from './basic_group';
 import BasicSequence from './basic_sequence';
 import ParallaxStarfield from './parallax_starfield';
@@ -14,6 +15,7 @@ import AnimateCss from './animate_css';
 render(<Router history={browserHistory}>
     <Route path='/' component={App}>
         <Route path='/basic' component={Basic}/>
+        <Route path='/inner-html' component={WithInnerHtml}/>
         <Route path='/basic-group' component={BasicGroup}/>
         <Route path='/basic-sequence' component={BasicSequence}/>
         <Route path='/parallax-starfield' component={ParallaxStarfield}/>
