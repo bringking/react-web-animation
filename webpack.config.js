@@ -1,6 +1,7 @@
 'use strict';
 
 var webpack = require('webpack');
+var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 var env = process.env.NODE_ENV;
 
 var reactExternal = {
@@ -40,6 +41,7 @@ var config = {
                 });
             }
         },
+        new LodashModuleReplacementPlugin(),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(env)

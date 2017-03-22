@@ -1,9 +1,10 @@
 /* eslint no-unused-vars:0*/
 import React, { Component, Children, PropTypes } from 'react';
 import Animatable from './animatable';
-import isEqual from 'lodash.isequal';
-import assign from 'lodash.assign';
 import playable from './mixins/playable';
+
+const _assign = require('lodash/assign');
+const _isEqual = require('lodash/isEqual');
 
 /**
  * The Abstract <Effect/> component represents the behavior of a Grouped set of <Animatable/>
@@ -66,7 +67,7 @@ class Effect extends Component {
         let newFrameCache = Object.assign({}, this.buildFrameCache(nextProps));
         const { currentTime } = nextProps;
 
-        if (!isEqual(newFrameCache, this.frameCache)) {
+        if (!_isEqual(newFrameCache, this.frameCache)) {
             this.keyframeEffects = nextKeyframes;
             this.effect = this.getEffectFromKeyframes(nextKeyframes);
             this.startAnimation(nextProps);
@@ -112,7 +113,7 @@ class Effect extends Component {
         }, childElements);
     }
 }
-assign(Effect.prototype, playable);
+_assign(Effect.prototype, playable);
 
 Effect.defaultProps = {
     component: 'div'
