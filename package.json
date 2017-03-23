@@ -1,6 +1,6 @@
 {
     "name": "react-web-animation",
-    "version": "0.0.0-managed-by-semantic-release",
+    "version": "0.0.0-development",
     "main": "./lib/index.js",
     "repository": {
         "type": "git",
@@ -23,15 +23,14 @@
     },
     "homepage": "https://github.com/RinconStrategies/react-web-animation",
     "scripts": {
-        "prepublish": "yarn build",
         "lint": "eslint src test",
         "test": "mocha --compilers js:babel-core/register --recursive",
         "test:watch": "yarn test -- --watch",
         "build:lib": "babel src --out-dir lib",
         "build:umd": "cross-env NODE_ENV=development webpack src/index.js dist/react-web-animation.js",
         "build:umd:min": "cross-env NODE_ENV=production webpack src/index.js dist/react-web-animation.min.js",
-        "build": "yarn lint && yarn test && yarn build:lib && yarn build:umd && yarn build:umd:min",
-        "semantic-release": "semantic-release pre && yarn publish && semantic-release post"
+        "build:all": "yarn build:lib && yarn build:umd && yarn build:umd:min",
+        "semantic-release": "semantic-release pre && yarn build:all && npm publish && semantic-release post"
     },
     "devDependencies": {
         "babel-cli": "^6.8.0",
@@ -54,7 +53,7 @@
         "react-dom": ">=15.1.0",
         "source-map": "^0.5.4",
         "webpack": "^2.3.1",
-        "semantic-release": "^6.3.6",
+        "semantic-release": "^6.3.2",
         "cz-customizable": "^4.0.0"
     },
     "release": {
