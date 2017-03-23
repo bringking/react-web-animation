@@ -10,79 +10,79 @@ const _isEqual = require('lodash/isEqual');
  * "player" instance for the wrapped element.
  */
 class Animation extends Animatable {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.state = {
-            player: null
-        };
-    }
+    this.state = {
+      player: null
+    };
+  }
 
-    /**
-     * Start the animation and set the player in the state
-     */
-    startAnimation(props) {
-        return this.setPlayer(this.node.animate(this.keyframes, this.timing), props);
-    }
+  /**
+   * Start the animation and set the player in the state
+   */
+  startAnimation(props) {
+    return this.setPlayer(this.node.animate(this.keyframes, this.timing), props);
+  }
 
-    componentWillReceiveProps(nextProps) {
-        const { timing, keyframes } = nextProps;
+  componentWillReceiveProps(nextProps) {
+    const { timing, keyframes } = nextProps;
 
-        // create data structures for props
-        if (timing && keyframes) {
-            const newTiming = Object.assign({}, timing);
+    // create data structures for props
+    if (timing && keyframes) {
+      const newTiming = Object.assign({}, timing);
 
-            if (!_isEqual(keyframes, this.keyframes) || !_isEqual(newTiming, this.timing)) {
-                this.timing = newTiming;
-                this.keyframes = keyframes;
-                // start the new animation with the new config
-                this.startAnimation(nextProps);
-            }
-        }
-
-        this.updatePlayer(nextProps);
-    }
-
-    componentDidMount() {
-        const { timing, keyframes } = this.props;
-
-        // create data structures for props
+      if (!_isEqual(keyframes, this.keyframes) || !_isEqual(newTiming, this.timing)) {
+        this.timing = newTiming;
         this.keyframes = keyframes;
-        this.timing = Object.assign({}, timing);
-
-        // start the animation
-        const player = this.startAnimation();
-        // But make sure that we honor the initial playState, if set.
-        this.updatePlayer(this.props, player);
+        // start the new animation with the new config
+        this.startAnimation(nextProps);
+      }
     }
 
-    render() {
-        const { children, getRef } = this.props;
+    this.updatePlayer(nextProps);
+  }
 
-        this.element = React.cloneElement(children, {
-            ref: (node) => {
-                this.node = node;
-                if (getRef) {
-                    getRef(node);
-                }
-                return node;
-            }
-        });
+  componentDidMount() {
+    const { timing, keyframes } = this.props;
 
-        return Children.only(this.element);
-    }
+    // create data structures for props
+    this.keyframes = keyframes;
+    this.timing = Object.assign({}, timing);
+
+    // start the animation
+    const player = this.startAnimation();
+    // But make sure that we honor the initial playState, if set.
+    this.updatePlayer(this.props, player);
+  }
+
+  render() {
+    const { children, getRef } = this.props;
+
+    this.element = React.cloneElement(children, {
+      ref: (node) => {
+        this.node = node;
+        if (getRef) {
+          getRef(node);
+        }
+        return node;
+      }
+    });
+
+    return Children.only(this.element);
+  }
 }
 
 _assign(Animation.prototype, playable);
 
 Animation.propTypes = _assign({}, Animatable.propTypes, {
-    onCancel: PropTypes.func,
-    onFinish: PropTypes.func,
-    onPause: PropTypes.func,
-    onPlay: PropTypes.func,
-    onReverse: PropTypes.func,
-    currentTime: PropTypes.number,
-    playState: PropTypes.oneOf(['running', 'paused', 'finished', 'idle', 'reversed'])
+  onCancel: PropTypes.func,
+  onFinish: PropTypes.func,
+  onPause: PropTypes.func,
+  onPlay: PropTypes.func,
+  onReverse: PropTypes.func,
+  currentTime: PropTypes.number,
+  playState: PropTypes.oneOf(['running', 'paused', 'finished', 'idle', 'reversed'])
 });
 
 export default Animation;

@@ -24,8 +24,7 @@
     "homepage": "https://github.com/RinconStrategies/react-web-animation",
     "scripts": {
         "lint": "eslint src test",
-        "test": "mocha --compilers js:babel-core/register --recursive",
-        "test:watch": "yarn test -- --watch",
+        "test": "NODE_ENV=test jest --coverage --no-cache",
         "build:lib": "babel src --out-dir lib",
         "build:umd": "cross-env NODE_ENV=development webpack src/index.js dist/react-web-animation.js",
         "build:umd:min": "cross-env NODE_ENV=production webpack src/index.js dist/react-web-animation.min.js",
@@ -40,21 +39,41 @@
         "babel-plugin-lodash": "^3.2.11",
         "babel-preset-es2015": "^6.5.0",
         "babel-preset-react": "^6.5.0",
+        "babel-plugin-transform-object-rest-spread": "^6.23.0",
         "chai": "*",
         "cross-env": "^3.2.4",
-        "dirty-chai": "^1.2.2",
+        "cz-customizable": "^4.0.0",
+        "eslint-plugin-react": "^6.9.0",
+        "babel-jest": "^18.0.0",
+        "jest": "^19.0.2",
+        "jest-cli": "^18.0.0",
         "enzyme": "^2.0.0",
         "eslint": "3.18.0",
-        "eslint-plugin-mocha": "4.9.0",
         "lodash-webpack-plugin": "^0.11.2",
-        "mocha": "3.2.0",
         "react": ">=15.1.0",
         "react-addons-test-utils": ">=15.1.0",
         "react-dom": ">=15.1.0",
-        "source-map": "^0.5.4",
-        "webpack": "^2.3.1",
         "semantic-release": "^6.3.2",
-        "cz-customizable": "^4.0.0"
+        "source-map": "^0.5.4",
+        "webpack": "^2.3.1"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "src/**/!(*.test).js"
+        ],
+        "coveragePathIgnorePatterns": [
+            "<rootDir>/node_modules/",
+            "dist/",
+            "lib/"
+        ],
+        "moduleFileExtensions": [
+            "js",
+            "jsx",
+            "json"
+        ],
+        "transform": {
+            "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+        }
     },
     "release": {
         "analyzeCommits": {

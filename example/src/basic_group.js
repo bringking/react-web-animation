@@ -1,7 +1,6 @@
 import React,{ Component } from 'react';
 import {AnimationGroup, Animatable} from '../../lib';
 
-
 export default class BasicGroup extends Component {
     constructor() {
         super();
@@ -69,18 +68,13 @@ export default class BasicGroup extends Component {
                 style={{display: 'flex',flexDirection: 'column', pointerEvents: 'none',fontWeight:'bold', fontSize: '4rem', alignItems: 'center',justifyContent: 'center',position: 'absolute',top: 0,left: 0,width: '100%',height: '100%'}}>
                 <AnimationGroup onReverse={this.onReverse} onPlay={this.onPlay} onFinish={this.onFinish} onCancel={this.onCancel}
                                 onPause={this.onPause} playState={this.state.playState} currentTime={this.state.currentTime}>
-                    <Animatable id="1" keyframes={this.getKeyFrames()} timing={this.getTiming(2000)}>
-                        <div>
-                            Web Animations API Rocks
-                        </div>
-                    </Animatable>
-                    <Animatable id="2" keyframes={this.getKeyFrames()} timing={this.getTiming(4000)}>
-                        <div>
-                            It really does!
-                        </div>
-                    </Animatable>
+                    <Animatable.div id="1"  keyframes={this.getKeyFrames()} timing={this.getTiming(2000)}>
+                        Web Animations API Rocks
+                    </Animatable.div>
+                    <Animatable.div id="2" keyframes={this.getKeyFrames()} timing={this.getTiming(4000)}>
+                        It really does!
+                    </Animatable.div>
                 </AnimationGroup>
-
             </div>
 
         </div>;

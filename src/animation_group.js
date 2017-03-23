@@ -8,9 +8,9 @@ import Effect from './effect';
  * timeline for the GroupEffect.
  */
 class AnimationGroup extends Effect {
-    constructor() {
-        super('GroupEffect');
-    }
+  constructor() {
+    super('GroupEffect');
+  }
 }
 
 export default AnimationGroup;
