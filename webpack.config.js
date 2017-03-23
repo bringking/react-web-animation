@@ -1,5 +1,4 @@
 'use strict';
-
 var webpack = require('webpack');
 var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 var env = process.env.NODE_ENV;
@@ -33,19 +32,10 @@ var config = {
         libraryTarget: 'umd'
     },
     plugins: [
-        {
-            apply: function apply( compiler ) {
-                compiler.parser.plugin('expression global', function expressionGlobalPlugin() {
-                    this.state.module.addVariable('global', '(function() { return this; }()) || Function(\'return this\')()');
-                    return false;
-                });
-            }
-        },
         new LodashModuleReplacementPlugin(),
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(env)
-        })
+        new webpack.EnvironmentPlugin([
+            "NODE_ENV"
+        ])
     ]
 };
 

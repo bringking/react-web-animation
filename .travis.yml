@@ -1,9 +1,15 @@
+sudo: false
 language: node_js
 node_js:
   - "stable"
-  - "4.4.5"
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH=$HOME/.yarn/bin:$PATH
+cache:
+  yarn: true
 install:
-  - npm install react
-  - npm install react-dom
-  - npm install immutable
-  - npm install
+  - yarn add react
+  - yarn add react-dom
+  - yarn
+after_success:
+  - yarn semantic-release
