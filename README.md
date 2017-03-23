@@ -53,16 +53,17 @@ and include it in your application.
 ```
 
 ## Features
+* Animate Single Elements with a `<Animated.[componentName]>` e.g. `<Animated.div>` and control play state (play, pause, stop, reverse)
 * Animate Single Elements with a `<Animation>` and control play state (play, pause, stop, reverse)
 * Animate Multiple animations in parallel with a `<AnimationGroup>`, controlling them with one timeline
 * Animate Multiple animations serially with a `<AnimationSequence>`, controlling them with one timeline
 
 ## Usage
 
-Animating a component is as simple as wrapping it in an `<Animation>` component and supplying `keyframes` and a `timing` config. 
+Creating an animated element is as simple using an `<Animated.[elementName]>` component and supplying `keyframes` and a `timing` config. 
 ```jsx
-import {Component} from 'react';
-import {Animation} from 'react-web-animation';
+import { Component } from 'react';
+import { Animated } from 'react-web-animation';
 
 
 export default class Basic extends Component {
@@ -89,12 +90,10 @@ export default class Basic extends Component {
 
     render() {
         return
-            <Animation keyframes={this.getKeyFrames()}
+            <Animated.div keyframes={this.getKeyFrames()}
                        timing={this.getTiming(2500)}>
-                <div>
                     Web Animations API Rocks
-                </div>
-            </Animation>;
+            </Animated.div>;
     }
 }
 

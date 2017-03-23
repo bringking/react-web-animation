@@ -13,16 +13,13 @@
   "objectLiteralShorthandProperties": true,
   "spread": true,
   "templateStrings": true,
-  "plugins": [
-    "mocha"
-  ],
   "env": {
     "node": true,
     "es6": true,
     "mocha": true
   },
   "globals": {
-    "window":true,
+    "window": true,
     "require": true,
     "KeyframeEffect": true,
     "GroupEffect": true,
@@ -30,7 +27,6 @@
     "document": true
   },
   "rules": {
-    "mocha/no-global-tests": 2,
     "comma-dangle": 0,
     "no-cond-assign": 2,
     "no-console": 0,
@@ -146,7 +142,7 @@
     "no-sync": 2,
     "indent": [
       2,
-      4,
+      2,
       {
         "SwitchCase": 1
       }

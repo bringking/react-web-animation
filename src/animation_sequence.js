@@ -8,9 +8,9 @@ import Effect from './effect';
  * timeline for the SequenceEffect.
  */
 class AnimationSequence extends Effect {
-    constructor() {
-        super('SequenceEffect');
-    }
+  constructor() {
+    super('SequenceEffect');
+  }
 }
 
 export default AnimationSequence;
