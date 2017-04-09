@@ -1,5 +1,6 @@
 /* global it, expect, describe */
-import { PropTypes, Component } from 'react';
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 import withHocElements from './with_hoc_elements';
 import domElements from './dom_elements';
 
