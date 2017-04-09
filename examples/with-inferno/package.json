@@ -1,0 +1,39 @@
+{
+  "name": "react-web-animation-inferno-example",
+  "version": "0.0.2",
+  "description": "Inferno example for react-web-animation",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bringking/react-web-animation.git"
+  },
+  "author": "Charles King <bringking@gmail.com> (http://github.com/bringking)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bringking/react-web-animation/issues"
+  },
+  "homepage": "https://github.com/bringking/react-web-animation",
+  "devDependencies": {
+    "babel-core": "^6.0.20",
+    "babel-eslint": "^4.1.3",
+    "babel-loader": "^6.0.1",
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
+    "babel-preset-stage-0": "^6.0.15",
+    "eslint-plugin-react": "^3.6.2",
+    "react-hot-loader": "^1.3.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "dependencies": {
+    "inferno": "^1.6.2",
+    "inferno-compat": "^1.6.2",
+    "json-loader": "^0.5.4",
+    "lodash.flatten": "^4.1.0",
+    "lodash.range": "^3.1.2",
+    "prop-types": "^15.5.6",
+    "react-web-animation": "*"
+  }
+}
