@@ -85,7 +85,6 @@ export default class BasicSequence extends Component {
             It really does!
           </Animatable.div>
         </AnimationSequence>
-
       </div>
     </div>;
   }

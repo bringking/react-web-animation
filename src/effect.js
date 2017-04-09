@@ -1,6 +1,6 @@
 /* eslint no-unused-vars:0*/
-import React, { Component, Children, PropTypes } from 'react';
-import Animatable from './animatable';
+import React, { Component, Children } from 'react';
+import PropTypes from 'prop-types';
 import playable from './mixins/playable';
 
 const _assign = require('lodash/assign');
