@@ -4,7 +4,7 @@
   "main": "./lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/RinconStrategies/react-web-animation.git"
+    "url": "https://github.com/bringking/react-web-animation.git"
   },
   "keywords": [
     "react",
@@ -16,12 +16,12 @@
     "lib",
     "src"
   ],
-  "author": "Charles King <charlie@rinconstrategies.io> (http://github.com/bringking)",
+  "author": "Charles King <bringking@gmail.com> (http://github.com/bringking)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RinconStrategies/react-web-animation/issues"
+    "url": "https://github.com/bringking/react-web-animation/issues"
   },
-  "homepage": "https://github.com/RinconStrategies/react-web-animation",
+  "homepage": "https://github.com/bringking/react-web-animation",
   "scripts": {
     "lint": "eslint src test",
     "test": "NODE_ENV=test jest --coverage --no-cache",
