@@ -96,7 +96,7 @@ export default class SpinningDots extends Component {
     return <div style={body} ref="container">
       {this.renderCircles(layers, start)}
       <a style={sourceLink}
-         href='https://github.com/RinconStrategies/react-web-animation/blob/master/example/src/spinning_dots.js'>
+         href='https://github.com/RinconStrategies/react-web-animation/blob/master/demo/src/spinning_dots.js'>
         View Source
       </a>
     </div>;
