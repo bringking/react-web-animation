@@ -93,7 +93,7 @@ export default class AnimateCss extends Component {
         </select>
       </div>
       <a style={sourceLink}
-         href='https://github.com/RinconStrategies/react-web-animation/blob/master/example/src/animate_css.js'>
+         href='https://github.com/RinconStrategies/react-web-animation/blob/master/demo/src/animate_css.js'>
         View Source
       </a>
     </div>;

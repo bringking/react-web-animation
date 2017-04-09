@@ -137,7 +137,7 @@ export default class ParallaxStarfield extends Component {
         ? this.getLayers(layerCount)
         : null}
       <a style={sourceLink}
-         href='https://github.com/RinconStrategies/react-web-animation/blob/master/example/src/parallax_starfield.js'>
+         href='https://github.com/RinconStrategies/react-web-animation/blob/master/demo/src/parallax_starfield.js'>
         View Source
       </a>
     </div>;

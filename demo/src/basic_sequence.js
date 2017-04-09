@@ -1,29 +1,13 @@
 import React, { Component } from 'react';
-import { Animated } from '../../lib';
+import { AnimationSequence, Animatable } from '../../lib';
 
-export default class Basic extends Component {
+export default class BasicSequence extends Component {
   constructor() {
     super();
     this.state = {
       currentTime: 0,
       playState: 'running'
     };
-  }
-
-  getStyles() {
-    return {
-      display: 'flex',
-      pointerEvents: 'none',
-      fontWeight: 'bold',
-      fontSize: '4rem',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%'
-    }
   }
 
   getKeyFrames() {
@@ -45,30 +29,10 @@ export default class Basic extends Component {
     };
   }
 
-  onPlay(player) {
-    console.log('Basic example: Play event');
-  }
-
-  onFinish(animationEvent) {
-    console.log('Basic example: Finish event');
-  }
-
-  onCancel(animationEvent) {
-    console.log('Basic example: Cancel event');
-  }
-
-  onPause(player) {
-    console.log('Basic example: Pause event');
-  }
-
-  onReverse(player) {
-    console.log('Basic example: Reverse event');
-  }
-
   render() {
     return <div>
       <label>Current Time: </label>
-      <input type="range" min="0" max="5000" value={this.state.currentTime}
+      <input type="range" min="0" max="12000" value={this.state.currentTime}
              onChange={(e) => {
                this.setState({ currentTime: parseInt(e.target.value, 10) });
              }}/>
@@ -96,15 +60,32 @@ export default class Basic extends Component {
         }}>Finish ⇥
         </button>
       </div>
-      <a href='https://github.com/RinconStrategies/react-web-animation/blob/master/example/src/basic.js'>View
+      <a href='https://github.com/RinconStrategies/react-web-animation/blob/master/demo/src/basic_sequence.js'>View
         Source</a>
-      <Animated.div onReverse={this.onReverse} onPlay={this.onPlay} onFinish={this.onFinish}
-                    onCancel={this.onCancel}
-                    onPause={this.onPause}
-                    playState={this.state.playState} keyframes={this.getKeyFrames()}
-                    timing={this.getTiming(2500)} currentTime={this.state.currentTime} style={this.getStyles()}>
-        Web Animations API Rocks
-      </Animated.div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          pointerEvents: 'none',
+          fontWeight: 'bold',
+          fontSize: '4rem',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%'
+        }}>
+        <AnimationSequence playState={this.state.playState} currentTime={this.state.currentTime}>
+          <Animatable.div id="1" keyframes={this.getKeyFrames()} timing={this.getTiming(2000)}>
+            Web Animations API Rocks
+          </Animatable.div>
+          <Animatable.div id="2" keyframes={this.getKeyFrames()} timing={this.getTiming(4000)}>
+            It really does!
+          </Animatable.div>
+        </AnimationSequence>
+      </div>
     </div>;
   }
 }
