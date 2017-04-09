@@ -30,6 +30,7 @@ export default () => (
       }`
         }
       </style>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.1/web-animations-next.min.js"></script>
     </Head>
     <Atom/>
   </div>
