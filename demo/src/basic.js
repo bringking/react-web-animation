@@ -66,7 +66,7 @@ export default class Basic extends Component {
   }
 
   render() {
-    return <div>
+    return <div style={{ padding: '12px' }}>
       <label>Current Time: </label>
       <input type="range" min="0" max="5000" value={this.state.currentTime}
              onChange={(e) => {

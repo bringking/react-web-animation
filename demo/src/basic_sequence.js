@@ -30,7 +30,7 @@ export default class BasicSequence extends Component {
   }
 
   render() {
-    return <div>
+    return <div style={{ padding: '12px' }}>
       <label>Current Time: </label>
       <input type="range" min="0" max="12000" value={this.state.currentTime}
              onChange={(e) => {

@@ -51,7 +51,7 @@ export default class BasicGroup extends Component {
     }
 
     render() {
-        return <div>
+        return <div style={{ padding: '12px' }}>
             <label>Current Time: </label>
             <input type="range" min="0" max="6000" value={this.state.currentTime}
                    onChange={(e)=>{this.setState({currentTime: parseInt(e.target.value,10)});}}/>
