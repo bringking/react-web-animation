@@ -2,6 +2,7 @@
 <head>
   <title>react-web-animations: Examples</title>
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       font-family: Roboto, Helvetica, Arial, Sans-Serif;
@@ -22,12 +23,66 @@
       border-radius: 3px;
       line-height: 16px;
     }
+
+    .menu-button {
+      background: #00D8FF;
+      color: white;
+      display: none;
+      transform: translate3d(150px, 0, 0);
+      border-radius: 0;
+    }
+
+    .example-display {
+      width: 80vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu {
+      width: 20vw;
+      height: 100vh;
+      border-right: 1px solid #ddd;
+      background: white;
+      transition: transform 250ms ease-in-out;
+    }
+
+    @media (max-width: 768px) {
+      .menu-button {
+        display: inline;
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 1;
+      }
+
+      .menu {
+        z-index: 1;
+        width: 150px;
+        position: absolute;
+        transform: translate3d(-151px, 0, 0);
+      }
+
+      .menu.active {
+        transform: translate3d(0, 0, 0);
+      }
+
+      .example-display {
+        width: 100%;
+        padding-top: 35px;
+      }
+
+      .welcome-animation svg {
+        width: 100%;
+      }
+    }
+
   </style>
 </head>
 <body>
 <div id='root'>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.1/web-animations-next.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.2/web-animations-next.min.js"></script>
 <script src="/dist/client.js"></script>
 </body>
 </html>

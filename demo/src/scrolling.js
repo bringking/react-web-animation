@@ -82,7 +82,7 @@ export default class Scrolling extends Component {
     const percentScrolled = event.target.scrollTop / scrollableArea;
     // 5000 is the total animation time since the 'direction' is alternate
     // alternate basically makes the total time be 'duration * 2'
-    this.setState({ currentTime: 5000 * percentScrolled })
+    this.setState({ currentTime: 5000 * percentScrolled });
   }
 
   render() {
@@ -100,7 +100,8 @@ export default class Scrolling extends Component {
 }
 
 // create a "TrackContainer" to track scroll events
-const TrackContainer = (props) => <div style={{ height: '100%', width: '100%', overflowY: 'auto' }} {...props}/>;
+const TrackContainer = (props) => <div
+  style={{ height: '100%', width: '100%', WebkitOverflowScrolling: 'touch', overflowY: 'auto' }} {...props}/>;
 
 // create a "Track" that is long and can be scrolled
 const Track = ({ trackHeight, ...rest }) => <div {...rest} style={{
