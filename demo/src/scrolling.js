@@ -122,6 +122,6 @@ const SourceLink = () =>
     top: 0,
     right: 0
   }}
-     href='https://github.com/RinconStrategies/react-web-animation/blob/master/demo/src/parallax_starfield.js'>
+     href='https://github.com/RinconStrategies/react-web-animation/blob/master/demo/src/scrolling.js'>
     View Source
   </a>;
