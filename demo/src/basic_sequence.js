@@ -72,6 +72,7 @@ export default class BasicSequence extends Component {
           alignItems: 'center',
           justifyContent: 'center',
           position: 'absolute',
+          padding: '12px',
           top: 0,
           left: 0,
           width: '100%',

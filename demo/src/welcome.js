@@ -39,13 +39,13 @@ const getOrbitTiming = (duration, direction) => {
   };
 };
 
-export default () => <div>
+export default () => <div style={{ padding: '12px' }}>
   <h1 style={{ marginBottom: '0px' }}>react-web-animation</h1>
   <h3 style={{ marginTop: '0px', color: '#aaa' }}>React components that expose the Web Animations API</h3>
   <p>Check out the examples on the left. More coming soon!</p>
   <p><a href='https://github.com/RinconStrategies/react-web-animation'>Source</a></p>
   <p><a href='https://github.com/RinconStrategies/react-web-animation/tree/master/src'>Documentation</a></p>
-  <div style={{ textAlign: 'center' }}>
+  <div style={{ textAlign: 'center' }} className="welcome-animation">
     <svg version='1.1' x='0px' y='0px'
          width='500px' height='500px' viewBox='0 0 600 600' enableBackground='new 0 0 600 600'>
       <Animated.circle keyframes={getCenterKeyFrames()} timing={getCenterTiming(2000)} fill='#00D8FF' cx='299.529'
