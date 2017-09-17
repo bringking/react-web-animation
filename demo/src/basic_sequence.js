@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AnimationSequence, Animatable } from '../../lib';
+import { AnimationSequence, Animatable } from 'react-web-animation';
 
 export default class BasicSequence extends Component {
   constructor() {

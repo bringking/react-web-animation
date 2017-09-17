@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import range from 'lodash.range';
 import assign from 'lodash.assign';
 import flatten from 'lodash.flatten';
-import { Animated } from '../../lib';
+import { Animated } from 'react-web-animation';
 
 export default class SpinningDots extends Component {
   constructor() {

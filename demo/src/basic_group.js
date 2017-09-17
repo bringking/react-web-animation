@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AnimationGroup, Animatable } from '../../lib';
+import { AnimationGroup, Animatable } from 'react-web-animation';
 
 export default class BasicGroup extends Component {
   constructor() {
