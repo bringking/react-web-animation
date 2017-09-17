@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated } from '../../lib';
+import { Animated } from 'react-web-animation';
 
 export default class AnimateCss extends Component {
   constructor() {

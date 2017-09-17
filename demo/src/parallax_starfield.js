@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import range from 'lodash.range';
 import assign from 'lodash.assign';
-import { AnimationGroup, Animatable } from '../../lib';
+import { AnimationGroup, Animatable } from 'react-web-animation';
 
 export default class ParallaxStarfield extends Component {
   constructor() {

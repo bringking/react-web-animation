@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated } from '../../lib';
+import { Animated } from 'react-web-animation';
 
 const getCenterKeyFrames = () => [
   { transform: 'scale(1)', fill: '#00D8FF', opacity: 1, offset: 0 },

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import range from 'lodash.range';
-import { Animatable, AnimationGroup } from '../../lib';
+import { Animatable, AnimationGroup } from 'react-web-animation';
 
 export default class Scrolling extends Component {
   constructor() {
