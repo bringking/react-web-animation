@@ -8,6 +8,7 @@ import ParallaxStarfield from './parallax_starfield';
 import SpinningDots from './spinning_dots';
 import AnimateCss from './animate_css';
 import Scrolling from './scrolling';
+import SvgGroup from './svg_group';
 import Welcome from './welcome';
 
 export default class App extends Component {
@@ -71,6 +72,9 @@ export default class App extends Component {
             <li style={this.getListItemStyle()} onClick={this.closeMenu}>
               <Link to="/scrolling">Scrolling</Link>
             </li>
+            <li style={this.getListItemStyle()} onClick={this.closeMenu}>
+              <Link to="/svg-group">SVG Group</Link>
+            </li>
           </ul>
         </div>
         <div className="example-display">
@@ -82,6 +86,7 @@ export default class App extends Component {
             <Route path="/spinning-dots" component={SpinningDots} />
             <Route path="/animate-css" component={AnimateCss} />
             <Route path="/scrolling" component={Scrolling} />
+            <Route path="/svg-group" component={SvgGroup} />
             <Route component={Welcome} />
           </Switch>
         </div>

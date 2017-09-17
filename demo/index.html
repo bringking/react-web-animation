@@ -47,6 +47,17 @@
       transition: transform 250ms ease-in-out;
     }
 
+    .svg-group circle {
+      fill: none;
+      stroke-width: 1;
+      stroke-linecap: round;
+      transform-origin: center center;
+    }
+
+    .svg-group circle:nth-child(even) {
+      transform: rotate(5deg);
+    }
+
     @media (max-width: 768px) {
       .menu-button {
         display: inline;

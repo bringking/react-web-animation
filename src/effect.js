@@ -106,6 +106,7 @@ class Effect extends Component {
     return React.createElement(
       component,
       {
+        ...this.props,
         ref: node => {
           this.wrapper = node;
           if (getRef) {
