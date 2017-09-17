@@ -36,6 +36,8 @@ export default {
           this.props.onReverse(player);
         }
         break;
+      default:
+        break;
     }
   },
   setPlayer(player, props) {
@@ -55,7 +57,6 @@ export default {
    * Shorthand for updating all relevant player state encoded into `props`.
    */
   updatePlayer(props, player = this.state.player) {
-
     let shouldUpdatePlayerState;
     // if the play state has been changed from the old to the new, or
     if (props.playState !== this.props.playState) {
@@ -78,7 +79,6 @@ export default {
     if (this.props.currentTime !== props.currentTime) {
       this.updateTime(props, player);
     }
-
   },
 
   updatePlayState({ playState }, player = this.state.player) {
@@ -102,6 +102,8 @@ export default {
       case 'reversed':
         player.reverse();
         break;
+      default:
+        break;
     }
 
     // notify any handlers of the state change
@@ -114,7 +116,5 @@ export default {
     }
 
     player.currentTime = currentTime;
-
-  }
-
+  },
 };

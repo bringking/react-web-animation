@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, Children } from 'react';
+import React, { Component, Children } from 'react';
+import PropTypes from 'prop-types';
 import withHocElements from './utils/with_hoc_elements';
 
 /**
@@ -14,14 +15,14 @@ class Animatable extends Component {
 
     // create our element
     this.element = React.cloneElement(children, {
-      ref: (node) => {
+      ref: node => {
         this.node = node;
         // if the user supplied a getRef function, pass the ref
         if (getRef) {
           getRef(node);
         }
         return node;
-      }
+      },
     });
 
     // render only the child, creating no wrapping elements
@@ -39,13 +40,15 @@ Animatable.propTypes = {
     fill: PropTypes.oneOf(['none', 'forwards', 'backwards', 'both', 'auto']),
     iterationStart: PropTypes.number,
     iterations: PropTypes.number,
-    duration: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
+    duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    direction: PropTypes.oneOf([
+      'normal',
+      'reverse',
+      'alternate',
+      'alternate-reverse',
     ]),
-    direction: PropTypes.oneOf(['normal', 'reverse', 'alternate', 'alternate-reverse']),
-    easing: PropTypes.string
-  }).isRequired
+    easing: PropTypes.string,
+  }).isRequired,
 };
 
 export default withHocElements(Animatable);

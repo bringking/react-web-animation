@@ -1,7 +1,5 @@
-/* global it, expect, describe */
 import Animatable from './animatable';
 import domElements from './utils/dom_elements';
-
 
 describe('Animatable', () => {
   it('will export an function', () => {
@@ -13,6 +11,8 @@ describe('Animatable', () => {
   });
 
   it('will the right displayName', () => {
-    domElements.forEach(e => expect(Animatable[e].displayName).toBe(`Animatable.${e}`));
+    domElements.forEach(e =>
+      expect(Animatable[e].displayName).toBe(`Animatable.${e}`),
+    );
   });
 });

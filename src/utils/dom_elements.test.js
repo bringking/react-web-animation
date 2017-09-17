@@ -1,4 +1,3 @@
-/* global it, expect, describe */
 import domElements from './dom_elements';
 
 describe('domElements', () => {

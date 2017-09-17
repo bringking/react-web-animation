@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Animatable from './animatable';
 import playable from './mixins/playable';
 
-const _assign = require('lodash/assign');
-const _isEqual = require('lodash/isEqual');
+const assign = require('lodash/assign');
+const isEqual = require('lodash/isEqual');
 
 /**
  * <Animation/> is a simple implementation of <Animatable/> and controls a single
@@ -15,7 +15,7 @@ class Animation extends Animatable {
     super();
 
     this.state = {
-      player: null
+      player: null,
     };
   }
 
@@ -23,7 +23,10 @@ class Animation extends Animatable {
    * Start the animation and set the player in the state
    */
   startAnimation(props) {
-    return this.setPlayer(this.node.animate(this.keyframes, this.timing), props);
+    return this.setPlayer(
+      this.node.animate(this.keyframes, this.timing),
+      props,
+    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,7 +36,10 @@ class Animation extends Animatable {
     if (timing && keyframes) {
       const newTiming = Object.assign({}, timing);
 
-      if (!_isEqual(keyframes, this.keyframes) || !_isEqual(newTiming, this.timing)) {
+      if (
+        !isEqual(keyframes, this.keyframes) ||
+        !isEqual(newTiming, this.timing)
+      ) {
         this.timing = newTiming;
         this.keyframes = keyframes;
         // start the new animation with the new config
@@ -61,29 +67,35 @@ class Animation extends Animatable {
     const { children, getRef } = this.props;
 
     this.element = React.cloneElement(children, {
-      ref: (node) => {
+      ref: node => {
         this.node = node;
         if (getRef) {
           getRef(node);
         }
         return node;
-      }
+      },
     });
 
     return Children.only(this.element);
   }
 }
 
-_assign(Animation.prototype, playable);
+assign(Animation.prototype, playable);
 
-Animation.propTypes = _assign({}, Animatable.propTypes, {
+Animation.propTypes = assign({}, Animatable.propTypes, {
   onCancel: PropTypes.func,
   onFinish: PropTypes.func,
   onPause: PropTypes.func,
   onPlay: PropTypes.func,
   onReverse: PropTypes.func,
   currentTime: PropTypes.number,
-  playState: PropTypes.oneOf(['running', 'paused', 'finished', 'idle', 'reversed'])
+  playState: PropTypes.oneOf([
+    'running',
+    'paused',
+    'finished',
+    'idle',
+    'reversed',
+  ]),
 });
 
 export default Animation;

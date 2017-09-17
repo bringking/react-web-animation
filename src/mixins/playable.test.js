@@ -1,4 +1,3 @@
-/* global jest, it, expect, describe */
 describe('playable', () => {
   let playable;
   beforeEach(() => {
@@ -12,13 +11,15 @@ describe('playable', () => {
   describe('componentWillUnmount', () => {
     beforeEach(() => {
       playable.state = {
-        player: {}
+        player: {},
       };
       playable.detachHandlersFromPlayer = jest.fn();
     });
     it('will attempt to detach any handlers from the player', () => {
       playable.componentWillUnmount();
-      expect(playable.detachHandlersFromPlayer).toHaveBeenCalledWith(playable.state.player);
+      expect(playable.detachHandlersFromPlayer).toHaveBeenCalledWith(
+        playable.state.player,
+      );
     });
   });
 
@@ -34,7 +35,7 @@ describe('playable', () => {
 
   describe('detachHandlersFromPlayer', () => {
     it('will remove handlers from the player', () => {
-      let player = { onfinish: () => true, oncancel: () => true };
+      const player = { onfinish: () => true, oncancel: () => true };
       playable.detachHandlersFromPlayer(player);
       expect(player.onfinish).toBe(null);
       expect(player.oncancel).toBe(null);
@@ -45,7 +46,7 @@ describe('playable', () => {
     describe('without a player', () => {
       beforeEach(() => {
         playable.state = {
-          player: null
+          player: null,
         };
         playable.props = { onPlay: jest.fn() };
       });
@@ -58,12 +59,12 @@ describe('playable', () => {
     describe('with a player', () => {
       beforeEach(() => {
         playable.state = {
-          player: {}
+          player: {},
         };
         playable.props = {
           onPlay: jest.fn(),
           onPause: jest.fn(),
-          onReverse: jest.fn()
+          onReverse: jest.fn(),
         };
       });
 
@@ -71,12 +72,17 @@ describe('playable', () => {
         playable.notifyHandlers('running');
         playable.notifyHandlers('paused');
         playable.notifyHandlers('reversed');
-        expect(playable.props.onPlay).toHaveBeenCalledWith(playable.state.player);
-        expect(playable.props.onPause).toHaveBeenCalledWith(playable.state.player);
-        expect(playable.props.onReverse).toHaveBeenCalledWith(playable.state.player);
+        expect(playable.props.onPlay).toHaveBeenCalledWith(
+          playable.state.player,
+        );
+        expect(playable.props.onPause).toHaveBeenCalledWith(
+          playable.state.player,
+        );
+        expect(playable.props.onReverse).toHaveBeenCalledWith(
+          playable.state.player,
+        );
       });
     });
-
   });
 
   describe('setPlayer', () => {
@@ -92,14 +98,20 @@ describe('playable', () => {
         const newPlayer = {};
         playable.setPlayer(newPlayer, {});
         expect(playable.setState).toHaveBeenCalledWith({ player: newPlayer });
-        expect(playable.attachHandlersToPlayer).toHaveBeenCalledWith(newPlayer, {});
+        expect(playable.attachHandlersToPlayer).toHaveBeenCalledWith(
+          newPlayer,
+          {},
+        );
       });
 
       it('without props, it will use instance props', () => {
         const newPlayer = {};
         playable.setPlayer(newPlayer);
         expect(playable.setState).toHaveBeenCalledWith({ player: newPlayer });
-        expect(playable.attachHandlersToPlayer).toHaveBeenCalledWith(newPlayer, playable.props);
+        expect(playable.attachHandlersToPlayer).toHaveBeenCalledWith(
+          newPlayer,
+          playable.props,
+        );
       });
     });
 
@@ -107,10 +119,10 @@ describe('playable', () => {
       let oldPlayer;
       beforeEach(() => {
         oldPlayer = {
-          cancel: jest.fn()
+          cancel: jest.fn(),
         };
         playable.state = {
-          player: oldPlayer
+          player: oldPlayer,
         };
         playable.setState = jest.fn();
         playable.attachHandlersToPlayer = jest.fn();
@@ -121,7 +133,10 @@ describe('playable', () => {
         playable.setPlayer(newPlayer, {});
         expect(oldPlayer.cancel).toHaveBeenCalled();
         expect(playable.setState).toHaveBeenCalledWith({ player: newPlayer });
-        expect(playable.attachHandlersToPlayer).toHaveBeenCalledWith(newPlayer, {});
+        expect(playable.attachHandlersToPlayer).toHaveBeenCalledWith(
+          newPlayer,
+          {},
+        );
       });
     });
   });
