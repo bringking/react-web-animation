@@ -1,13 +1,14 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { Animatable, AnimationGroup } from '../../lib';
 import range from 'lodash.range';
+import { Animatable, AnimationGroup } from '../../lib';
 
 export default class Scrolling extends Component {
   constructor() {
     super();
     this.state = {
       currentTime: 0,
-      trackHeight: 10000
+      trackHeight: 10000,
     };
     this.handleScroll = this.handleScroll.bind(this);
     // create a set of items with the right animations and keyframes
@@ -22,7 +23,7 @@ export default class Scrolling extends Component {
       width: '100px',
       height: '100px',
       left: 'calc(50% - 50px)',
-      backgroundColor: `hsla(${193 + i}, 95%, 68%, 1)`
+      backgroundColor: `hsla(${193 + i}, 95%, 68%, 1)`,
     };
 
     if (i % 2) {
@@ -35,7 +36,6 @@ export default class Scrolling extends Component {
   }
 
   getKeyFrames(i) {
-
     let finalVal;
     let startVal;
     if (i % 2) {
@@ -46,10 +46,29 @@ export default class Scrolling extends Component {
       finalVal = '500px';
     }
 
-    const frames = [{ transform: `translate3d(0,${i * 100}px,0)`, borderRadius: '50%', opacity: 1, offset: 0 },
-      { transform: `translate3d(${startVal},${i * 100}px,0)`, opacity: 0.5, offset: 0.3 },
-      { transform: `translate3d(${finalVal},${i * 100}px,0)`, opacity: 0.667, offset: 0.7875 },
-      { transform: `translate3d(0,${i * 100}px,0)`, borderRadius: '0%', opacity: 0.6, offset: 1 }
+    const frames = [
+      {
+        transform: `translate3d(0,${i * 100}px,0)`,
+        borderRadius: '50%',
+        opacity: 1,
+        offset: 0,
+      },
+      {
+        transform: `translate3d(${startVal},${i * 100}px,0)`,
+        opacity: 0.5,
+        offset: 0.3,
+      },
+      {
+        transform: `translate3d(${finalVal},${i * 100}px,0)`,
+        opacity: 0.667,
+        offset: 0.7875,
+      },
+      {
+        transform: `translate3d(0,${i * 100}px,0)`,
+        borderRadius: '0%',
+        opacity: 0.6,
+        offset: 1,
+      },
     ];
 
     return frames;
@@ -62,18 +81,20 @@ export default class Scrolling extends Component {
       delay: 0,
       iterations: 2,
       direction: 'alternate',
-      fill: 'forwards'
+      fill: 'forwards',
     };
   }
 
   buildItems() {
     // build up a set of 100 items that will be animated in the group
-    return range(100).map(i => <Animatable.div
-      key={i}
-      keyframes={this.getKeyFrames(i)}
-      timing={this.getTiming(2500)}
-      style={this.getStyles(i)}>
-    </Animatable.div>)
+    return range(100).map(i => (
+      <Animatable.div
+        key={i}
+        keyframes={this.getKeyFrames(i)}
+        timing={this.getTiming(2500)}
+        style={this.getStyles(i)}
+      />
+    ));
   }
 
   handleScroll(event) {
@@ -88,41 +109,63 @@ export default class Scrolling extends Component {
   render() {
     // use an AnimationGroup so we are only creating a single player instance
     // IMPORTANT! Set the playState to 'paused' so it doesn't animated on it's own
-    return <TrackContainer onScroll={this.handleScroll}>
-      <Track trackHeight={this.state.trackHeight}>
-        <SourceLink/>
-        <AnimationGroup playState={'paused'} currentTime={this.state.currentTime}>
-          {this.items}
-        </AnimationGroup>
-      </Track>
-    </TrackContainer>;
+    return (
+      <TrackContainer onScroll={this.handleScroll}>
+        <Track trackHeight={this.state.trackHeight}>
+          <SourceLink />
+          <AnimationGroup
+            playState={'paused'}
+            currentTime={this.state.currentTime}
+          >
+            {this.items}
+          </AnimationGroup>
+        </Track>
+      </TrackContainer>
+    );
   }
 }
 
 // create a "TrackContainer" to track scroll events
-const TrackContainer = (props) => <div
-  style={{ height: '100%', width: '100%', WebkitOverflowScrolling: 'touch', overflowY: 'auto' }} {...props}/>;
+const TrackContainer = props => (
+  <div
+    style={{
+      height: '100%',
+      width: '100%',
+      WebkitOverflowScrolling: 'touch',
+      overflowY: 'auto',
+    }}
+    {...props}
+  />
+);
 
 // create a "Track" that is long and can be scrolled
-const Track = ({ trackHeight, ...rest }) => <div {...rest} style={{
-  width: '100%',
-  height: `${trackHeight}px`,
-  position: 'relative'
-}}></div>;
+const Track = ({ trackHeight, ...rest }) => (
+  <div
+    {...rest}
+    style={{
+      width: '100%',
+      height: `${trackHeight}px`,
+      position: 'relative',
+    }}
+  />
+);
 
 // source code link
-const SourceLink = () =>
-  <a style={{
-    textDecoration: 'none',
-    padding: '6px',
-    fontFamily: 'Roboto',
-    fontWeight: 'bold',
-    backgroundColor: '#333',
-    color: 'white',
-    position: 'fixed',
-    top: 0,
-    right: 0
-  }}
-     href='https://github.com/RinconStrategies/react-web-animation/blob/master/demo/src/scrolling.js'>
+const SourceLink = () => (
+  <a
+    style={{
+      textDecoration: 'none',
+      padding: '6px',
+      fontFamily: 'Roboto',
+      fontWeight: 'bold',
+      backgroundColor: '#333',
+      color: 'white',
+      position: 'fixed',
+      top: 0,
+      right: 0,
+    }}
+    href="https://github.com/RinconStrategies/react-web-animation/blob/master/demo/src/scrolling.js"
+  >
     View Source
-  </a>;
+  </a>
+);

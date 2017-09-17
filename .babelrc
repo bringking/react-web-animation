@@ -1,4 +1,9 @@
 {
-    "presets": ["es2015", "react"],
-    "plugins": ["lodash", "transform-object-rest-spread"]
+    "presets": [["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "safari >= 8"]
+      }
+    }],"react"],
+
+    "plugins": ["lodash", "transform-class-properties", "transform-object-rest-spread"]
 }

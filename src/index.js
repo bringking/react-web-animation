@@ -1,8 +1,8 @@
-import { default as Animated } from './animated';
-import { default as Animatable } from './animatable';
-import { default as Animation } from './animation';
-import { default as AnimationGroup } from './animation_group';
-import { default as AnimationSequence } from './animation_sequence';
+import Animated from './animated';
+import Animatable from './animatable';
+import Animation from './animation';
+import AnimationGroup from './animation_group';
+import AnimationSequence from './animation_sequence';
 // re-export
 export { default as Animated } from './animated';
 export { default as Animatable } from './animatable';
@@ -16,5 +16,5 @@ export default {
   Animatable,
   Animation,
   AnimationGroup,
-  AnimationSequence
+  AnimationSequence,
 };

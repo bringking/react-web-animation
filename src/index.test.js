@@ -1,5 +1,10 @@
-/* global it, expect, describe */
-import ReactWebAnimation, { Animated, Animatable, Animation, AnimationGroup, AnimationSequence } from './index';
+import ReactWebAnimation, {
+  Animated,
+  Animatable,
+  Animation,
+  AnimationGroup,
+  AnimationSequence,
+} from './index';
 
 describe('index', () => {
   it('exports all the components', () => {
