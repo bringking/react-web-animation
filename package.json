@@ -78,10 +78,10 @@
     "analyzeCommits": {
       "path": "./release/analyze-commits.js",
       "minorTypes": [
-        "fix",
         "feat"
       ],
       "patchTypes": [
+        "fix",
         "refactor",
         "docs"
       ]
