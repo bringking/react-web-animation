@@ -40,6 +40,10 @@ describe('playable', () => {
       expect(player.onfinish).toBe(null);
       expect(player.oncancel).toBe(null);
     });
+
+    it('will not throw exception on undefined player', () => {
+      playable.detachHandlersFromPlayer(undefined);
+    });
   });
 
   describe('notifyHandlers', () => {
