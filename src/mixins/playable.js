@@ -12,8 +12,10 @@ export default {
     player.oncancel = props.onCancel;
   },
   detachHandlersFromPlayer(player) {
-    player.onfinish = null;
-    player.oncancel = null;
+    if (player) {
+      player.onfinish = null;
+      player.oncancel = null;
+    }
   },
   notifyHandlers(event) {
     const { player } = this.state;
