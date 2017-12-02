@@ -63,7 +63,7 @@ and include it in your application.
 
 Creating an animated element is as simple using an `<Animated.[elementName]>` component and supplying `keyframes` and a `timing` config. 
 ```jsx
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Animated } from 'react-web-animation';
 
 
