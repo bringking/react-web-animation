@@ -28,8 +28,12 @@ var config = {
         ]
     },
     output: {
-        library: 'ReactWebAnimation',
-        libraryTarget: 'umd'
+        library: {
+          root: 'ReactWebAnimation',
+          amd: 'react-web-animation',
+        },
+        libraryTarget: 'umd',
+        umdNamedDefine: true,
     },
     plugins: [
         new LodashModuleReplacementPlugin(),
